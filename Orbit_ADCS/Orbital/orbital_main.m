@@ -37,7 +37,7 @@ tspan = linspace(0,Tend,npoints)';
 % S/C initial position around earth:
 a = (mu_e*(T*60/(2*pi))^2)^(1/3);
 
-    % SSO case
+% SSO case
 J2 = astroConstants(9);
 p = a;
 d_om_sun = 2*pi/(365.2411984*24*3600);
@@ -106,7 +106,7 @@ if plot_panel == true
     figure
     plot(tspan, BBz)
     xlim([0,max(tspan)])
-T = T*60;
+    T = T*60;
 
     figure
     plot(tspan/T,visibility,'k','LineWidth',1.5)
