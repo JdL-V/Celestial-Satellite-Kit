@@ -1,4 +1,4 @@
-function Panel = norm2sun()
+function Panel = norm2sun(a_e, irr0, npoints, tspan, R, visibility, r, v)
     npanels = 3;
     Panel = zeros(size(th,2),npanels);
     for k = 1:npoints

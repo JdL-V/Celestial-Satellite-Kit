@@ -1,4 +1,4 @@
-function Panel =  point2earth()
+function Panel =  point2earth(a_e, irr0, npoints, tspan, R, visibility, r, v)
     Panel = zeros(size(th,2),4);
     for k = 1:npoints
 

@@ -1,4 +1,4 @@
-function Panel =  parallel2mag()
+function [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, visibility, r, v)
     Panel = zeros(size(th,2),4);
     BBx = zeros(3,npoints);
     BBy = zeros(3,npoints);

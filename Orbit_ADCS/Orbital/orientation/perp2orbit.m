@@ -1,4 +1,6 @@
-function Panel = perp2orbit()
+function Panel = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v)
+    r0 = r(1,:)';
+    v0 = v(1,:)';
     % vector x, normal a la órbita
     Bx = (cross(r0',v0')/(norm(r0)*norm(v0)))'; 
     By = -r0/norm(r0);
