@@ -12,8 +12,8 @@ addpath(genpath(fileparts(which(mfilename))));
 %***************************************************************************************************************************************
 %***************************************************************************************************************************************
 
-n = 5;                   % number of orbits (15)
-dT = 5;                   % time step (0.5)
+n = 200;                   % number of orbits (15)
+dT = 50;                   % time step (0.5)
 case_adcs = 1;            % case ADCS (1=sigue las lineas de campo, 2=x mirando a nadir, 3=x perpendicular al plano, 4=paneles al sol)
 % tipo_panel = 2;           % panel type (1 = galio, 2 = silicio (inutil))                 
 ciclo = 1;                % ciclo de consumos de los componentes (1 = 30s, 2 = 60s) 
@@ -44,7 +44,7 @@ npoints = n*T*60/dT + 1;
 
 pointing = adcs_select(case_adcs);
 
-[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, true, true, true, n_fail);
+[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, true, true, false, n_fail);
 
 % I = [I(1) I I(end)];
 % rho = 1;
