@@ -1,4 +1,4 @@
-function Panel = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v)
+function [Panel, BBx, BBy, BBz]  = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ)
     r0 = r(1,:)';
     v0 = v(1,:)';
     % vector x, normal a la órbita
@@ -10,6 +10,9 @@ function Panel = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v)
     Bz = cross(Bx,By);
     Bz = Bz/norm(Bz);
     Panel = zeros(size(th,2),4);
+    BBx = zeros(3,npoints);
+    BBy = zeros(3,npoints);
+    BBz = zeros(3,npoints);
     % The loop is computed in order to solve for each timestep.
     for k = 1:npoints
         

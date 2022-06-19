@@ -1,5 +1,8 @@
-function Panel =  point2earth(a_e, irr0, npoints, tspan, R, visibility, r, v)
+function [Panel, BBx, BBy, BBz]  =  point2earth(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ)
     Panel = zeros(size(th,2),4);
+    BBx = zeros(3,npoints);
+    BBy = zeros(3,npoints);
+    BBz = zeros(3,npoints);
     for k = 1:npoints
 
         sun_dir = (R(k,:)/norm(R(k,:)))';

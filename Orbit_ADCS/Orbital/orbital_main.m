@@ -99,129 +99,22 @@ www = [1;0;0];
 %% Magnetic orientation case. 
 
 if case_adcs == 1
-    for k = 1:npoints
-
-        sun_dir = (R(k,:)/norm(R(k,:)))';
-        A56 = [1, 0,                0;
-               0, cos(w*tspan(k)), -sin(w*tspan(k));
-               0, sin(w*tspan(k)),  cos(w*tspan(k))];
-    
-        if case_adcs == 1 
-            Bx = XYZ(k,:)';
-            By = cross(Bx, www);
-            Bz = cross(Bx, By);
-            BBx(:,k) = Bx;
-            BBy(:,k) = By/norm(By);
-            BBz(:,k) = Bz/norm(Bz);
-            A15 = [Bx,By/norm(By),Bz/norm(Bz)]';
-        end
-    
-        sun_body = A56*A15*sun_dir;
-    
-        Dot_Zp = [0,0,1]*sun_body;
-        Dot_Zn = [0,0,-1]*sun_body;
-        Dot_Yp = [0,1,0]*sun_body;
-        Dot_Yn = [0,-1,0]*sun_body;
-        
-        irr = a_e^2*irr0/norm(R(k,:))^2;
-        Panel(k,1) = irr*Dot_Zp*(Dot_Zp>cosd(75))*visibility(k);
-        Panel(k,2) =  irr*Dot_Zn*(Dot_Zn>cosd(75))*visibility(k);
-        Panel(k,3) = irr*Dot_Yp*(Dot_Yp>cosd(75))*visibility(k);
-        Panel(k,4) =  irr*Dot_Yn*(Dot_Yn>cosd(75))*visibility(k);
-    end
+    [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, visibility, r, v)
 end
 
 %% Earth pointing case. 
 
 if case_adcs == 2
-    for k = 1:npoints
-
-        sun_dir = (R(k,:)/norm(R(k,:)))';
-
-        A56 = [1, 0,                0;
-               0, cos(w*tspan(k)), -sin(w*tspan(k));
-               0, sin(w*tspan(k)),  cos(w*tspan(k))];
-
-        Bx = -r(k,:)'/norm(r(k,:));
-        Bv = v(k,:)'/norm(v(k,:));
-    
-        By = cross(Bx,Bv);
-        By = By/norm(By);
-    
-        Bz = cross(Bx,By);
-        Bz = Bz/norm(Bz);
-    
-        BBx(:,k) = Bx;
-        BBy(:,k) = By;
-        BBz(:,k) = Bz;
-
-        A15 = [Bx,By,Bz]';
-    
-        sun_body = A56*A15*sun_dir;
-  
-        Dot_Zp = [0,0,1]*sun_body;
-        Dot_Zn = [0,0,-1]*sun_body;
-        Dot_Yp = [0,1,0]*sun_body;
-        Dot_Yn = [0,-1,0]*sun_body;
-
-        irr = a_e^2*irr0/norm(R(k,:))^2;
-        Panel(k,1) = irr*Dot_Zp*(Dot_Zp>cosd(75))*visibility(k);
-        Panel(k,2) =  irr*Dot_Zn*(Dot_Zn>cosd(75))*visibility(k);
-        Panel(k,3) = irr*Dot_Yp*(Dot_Yp>cosd(75))*visibility(k);
-        Panel(k,4) =  irr*Dot_Yn*(Dot_Yn>cosd(75))*visibility(k);
-    end
+    [Panel, BBx, BBy, BBz]  =  point2earth(a_e, irr0, npoints, tspan, R, visibility, r, v)
 end
 
 %% Rotation around the perpendicular axis to the orbital plane case.
-        % vector x, normal a la órbita
-        Bx = (cross(r0',v0')/(norm(r0)*norm(v0)))'; 
-        By = -r0/norm(r0);
-        By = By/norm(By);
-
-        % vector z is calculated using a cross product.
-        Bz = cross(Bx,By);
-        Bz = Bz/norm(Bz);
 if case_adcs == 3
-
-    % The loop is computed in order to solve for each timestep.
-    for k = 1:npoints
-        
-        sun_dir = (R(k,:)/norm(R(k,:)))'; % vector dirección solar.
-        
-        % matriz de giro con velocidad angular w (rad/s).
-        A56 = [1, 0,                0;
-               0, cos(w*tspan(k)), -sin(w*tspan(k));
-               0, sin(w*tspan(k)),  cos(w*tspan(k))];
-
-
-        BBx(:,k) = (cross(r(k,:)',v(k,:)')/(norm(r(k,:))*norm(v(k,:))))';
-        BBy(:,k) = By;
-        BBz(:,k) = Bz;
-
-        A15 = [Bx,By,Bz]';
-
-        sun_body = A56*A15*sun_dir;
-  
-        Dot_Zp = [0,0,1]*sun_body;
-        Dot_Zn = [0,0,-1]*sun_body;
-        Dot_Yp = [0,1,0]*sun_body;
-        Dot_Yn = [0,-1,0]*sun_body;
-
-        irr = a_e^2*irr0/norm(R(k,:))^2;
-        Panel(k,1) = irr*Dot_Zp*(Dot_Zp>cosd(75))*visibility(k);
-        Panel(k,2) =  irr*Dot_Zn*(Dot_Zn>cosd(75))*visibility(k);
-        Panel(k,3) = irr*Dot_Yp*(Dot_Yp>cosd(75))*visibility(k);
-        Panel(k,4) =  irr*Dot_Yn*(Dot_Yn>cosd(75))*visibility(k);
-    end
+    [Panel, BBx, BBy, BBz]  = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v)
 end
 
 if case_adcs == 4
-    npanels = 3;
-    Panel = zeros(size(th,2),npanels);
-    for k = 1:npoints
-        irr = a_e^2*irr0/norm(R(k,:))^2;
-        Panel(k,:) = ones(1,npanels)*irr*visibility(k);
-    end
+    [Panel, BBx, BBy, BBz] = norm2sun(a_e, irr0, npoints, tspan, R, visibility, r, v)
 end
 
 Panel = fail_mode(Panel, n_fail);
