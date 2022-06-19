@@ -42,9 +42,7 @@ M = 1;                                  % Month of the year March = 1; Feb = 12
 
 npoints = n*T*60/dT + 1;
 
-tic
 [tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(n, npoints, T, H, ecc, om, th, M, w, case_adcs, true, true, n_fail);
-toc
 
 % I = [I(1) I I(end)];
 % rho = 1;
