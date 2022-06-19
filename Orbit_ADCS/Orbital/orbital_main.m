@@ -1,6 +1,6 @@
 
 function [tspan, theta, Panel, beta, visibility, Ix, mu] = orbital_main(n, npoints, T, H, ecc, om, th, M, w, case_adcs, plot_panel, plot_orbit, n_fail)
-    
+tic
 %% Costants and initial conditions:
 AU = astroConstants(2);         % distance 1AU in km
 
@@ -196,4 +196,5 @@ A2 = 11^2*1e-6;
 J  = 3.131*1e-4;
 dt = tspan(2) - tspan(1);
 [Ix, mu]  = mag_2(dt, N, A1, J, BBx, B_N');
+toc
 end

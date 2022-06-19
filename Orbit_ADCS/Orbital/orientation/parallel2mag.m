@@ -3,7 +3,7 @@ function [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, vi
     BBx = zeros(3,npoints);
     BBy = zeros(3,npoints);
     BBz = zeros(3,npoints);
-    www = [1;0;0];
+    www = [1; 0; 0];
     for k = 1:npoints
 
         sun_dir = (R(k,:)/norm(R(k,:)))';
