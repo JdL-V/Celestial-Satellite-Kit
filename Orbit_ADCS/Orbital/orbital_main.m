@@ -1,5 +1,5 @@
 
-function [tspan, theta, Panel, beta, visibility, Ix, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, case_adcs, plot_panel, plot_orbit, n_fail)
+function [tspan, theta, Panel, beta, visibility, Ix, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, plot_panel, plot_sunorbit, plot_earthorbit, n_fail)
 tic
 %% Costants and initial conditions:
 AU = astroConstants(2);         % distance 1AU in km
@@ -134,7 +134,24 @@ T = T*60;
     set(gca,'FontSize',18)
 end
 
-if plot_orbit == true
+if plot_earthorbit == true
+    figure
+    orbit_spacecraft = plot3(r(:,1),r(:,2),r(:,3),'Color','b','LineWidth',2);
+    hold on
+    sc = plot3(nan,nan,nan,'o','MarkerFaceColor','k','MarkerEdgeColor','k');
+
+    axis equal
+
+    %%
+    for k = 1:round(npoints/1000):npoints
+        set(sc,'XDATA',r(k,1))
+        set(sc,'YDATA',r(k,2))
+        set(sc,'ZDATA',r(k,3))
+        drawnow
+    end
+end
+
+if plot_sunorbit == true
     figure
     orbit_earth = plot3(r_e(:,1),r_e(:,2),r_e(:,3),'Color','r','LineWidth',2);
     hold on
@@ -143,7 +160,7 @@ if plot_orbit == true
     % sun = plot3(0,0,0,'o','MarkerFaceColor','k','MarkerEdgeColor','k');
     earth = plot3(nan,nan,nan,'o','MarkerFaceColor','k','MarkerEdgeColor','k');
     sc = plot3(nan,nan,nan,'o','MarkerFaceColor','k','MarkerEdgeColor','k');
-    link = plot3(nan,nan,nan,'r','LineWidth',2);
+    % link = plot3(nan,nan,nan,'r','LineWidth',2);
 
     axis equal
 
