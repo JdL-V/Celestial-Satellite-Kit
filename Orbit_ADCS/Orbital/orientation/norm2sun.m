@@ -1,7 +1,7 @@
-function [Panel, BBx, BBy, BBz] = norm2sun(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
+function [Panel, BBx, BBy, BBz] = norm2sun(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w)
     npanels = 3;
     Panel = zeros(size(th,2),npanels);
-    www = [1;0;0];
+    www = [1 0 0];
     for k = 1:npoints
         BBx(:,k) = (R(k,:)/norm(R(k,:)))';
         By = cross(BBx, www);

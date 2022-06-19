@@ -1,4 +1,4 @@
-function [Panel, BBx, BBy, BBz]  =  point2earth(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
+function [Panel, BBx, BBy, BBz]  =  point2earth(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w)
     Panel = zeros(size(th,2),4);
     BBx = zeros(3,npoints);
     BBy = zeros(3,npoints);

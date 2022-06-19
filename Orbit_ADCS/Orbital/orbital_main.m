@@ -88,33 +88,27 @@ for k = 1:npoints
     XYZ(k,:) = B_N(k,:)/norm(B_N(k,:));
 end
 
-Panel = zeros(size(th,2),4);
-
-BBx = zeros(3,npoints);
-BBy = zeros(3,npoints);
-BBz = zeros(3,npoints);
 theta = linspace(0, n*2*pi, npoints);
-www = [1;0;0];
 
 %% Magnetic orientation case. 
-
 if case_adcs == 1
-    [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
+    [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w);
 end
 
 %% Earth pointing case. 
 
 if case_adcs == 2
-    [Panel, BBx, BBy, BBz]  =  point2earth(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
+    [Panel, BBx, BBy, BBz]  =  point2earth(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w);
 end
 
 %% Rotation around the perpendicular axis to the orbital plane case.
 if case_adcs == 3
-    [Panel, BBx, BBy, BBz]  = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
+    [Panel, BBx, BBy, BBz]  = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w);
 end
 
+%% Normal to sun
 if case_adcs == 4
-    [Panel, BBx, BBy, BBz] = norm2sun(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
+    [Panel, BBx, BBy, BBz] = norm2sun(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w);
 end
 
 Panel = fail_mode(Panel, n_fail);
@@ -173,7 +167,7 @@ if plot_orbit == true
     axis equal
 
     %%
-    for k = 1:npoints
+    for k = 1:round(npoints/500):npoints
         set(earth,'XDATA',r_e(k,1))
         set(earth,'YDATA',r_e(k,2))
         set(earth,'ZDATA',r_e(k,3))

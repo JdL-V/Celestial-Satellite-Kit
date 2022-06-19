@@ -1,9 +1,8 @@
-function [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
+function [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w)
     Panel = zeros(size(th,2),4);
     BBx = zeros(3,npoints);
     BBy = zeros(3,npoints);
     BBz = zeros(3,npoints);
-    theta = linspace(0, n*2*pi, npoints);
     www = [1;0;0];
     for k = 1:npoints
 
@@ -12,15 +11,14 @@ function [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, vi
             0, cos(w*tspan(k)), -sin(w*tspan(k));
             0, sin(w*tspan(k)),  cos(w*tspan(k))];
 
-        if case_adcs == 1 
-            Bx = XYZ(k,:)';
-            By = cross(Bx, www);
-            Bz = cross(Bx, By);
-            BBx(:,k) = Bx;
-            BBy(:,k) = By/norm(By);
-            BBz(:,k) = Bz/norm(Bz);
-            A15 = [Bx,By/norm(By),Bz/norm(Bz)]';
-        end
+        
+        Bx = XYZ(k,:)';
+        By = cross(Bx, www);
+        Bz = cross(Bx, By);
+        BBx(:,k) = Bx;
+        BBy(:,k) = By/norm(By);
+        BBz(:,k) = Bz/norm(Bz);
+        A15 = [Bx,By/norm(By),Bz/norm(Bz)]';
 
         sun_body = A56*A15*sun_dir;
 
