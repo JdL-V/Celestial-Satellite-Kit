@@ -1,5 +1,5 @@
 
-function [tspan, theta, Panel, beta, visibility, Ix, mu] = orbital_main(n, npoints, T, H, ecc, om, th, M, w, case_adcs, plot_panel, plot_orbit, n_fail)
+function [tspan, theta, Panel, beta, visibility, Ix, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, case_adcs, plot_panel, plot_orbit, n_fail)
 tic
 %% Costants and initial conditions:
 AU = astroConstants(2);         % distance 1AU in km
@@ -90,26 +90,7 @@ end
 
 theta = linspace(0, n*2*pi, npoints);
 
-%% Magnetic orientation case. 
-if case_adcs == 1
-    [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w);
-end
-
-%% Earth pointing case. 
-
-if case_adcs == 2
-    [Panel, BBx, BBy, BBz]  =  point2earth(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w);
-end
-
-%% Rotation around the perpendicular axis to the orbital plane case.
-if case_adcs == 3
-    [Panel, BBx, BBy, BBz]  = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w);
-end
-
-%% Normal to sun
-if case_adcs == 4
-    [Panel, BBx, BBy, BBz] = norm2sun(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w);
-end
+[Panel, BBx, BBy, BBz] =  pointing(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w);
 
 Panel = fail_mode(Panel, n_fail);
 
@@ -167,7 +148,7 @@ if plot_orbit == true
     axis equal
 
     %%
-    for k = 1:round(npoints/500):npoints
+    for k = 1:round(npoints/1000):npoints
         set(earth,'XDATA',r_e(k,1))
         set(earth,'YDATA',r_e(k,2))
         set(earth,'ZDATA',r_e(k,3))
