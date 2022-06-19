@@ -1,4 +1,4 @@
-function [Panel, BBx, BBy, BBz]  = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ)
+function [Panel, BBx, BBy, BBz]  = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
     r0 = r(1,:)';
     v0 = v(1,:)';
     % vector x, normal a la órbita

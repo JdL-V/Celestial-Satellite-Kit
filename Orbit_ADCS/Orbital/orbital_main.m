@@ -99,22 +99,22 @@ www = [1;0;0];
 %% Magnetic orientation case. 
 
 if case_adcs == 1
-    [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, visibility, r, v)
+    [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
 end
 
 %% Earth pointing case. 
 
 if case_adcs == 2
-    [Panel, BBx, BBy, BBz]  =  point2earth(a_e, irr0, npoints, tspan, R, visibility, r, v)
+    [Panel, BBx, BBy, BBz]  =  point2earth(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
 end
 
 %% Rotation around the perpendicular axis to the orbital plane case.
 if case_adcs == 3
-    [Panel, BBx, BBy, BBz]  = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v)
+    [Panel, BBx, BBy, BBz]  = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
 end
 
 if case_adcs == 4
-    [Panel, BBx, BBy, BBz] = norm2sun(a_e, irr0, npoints, tspan, R, visibility, r, v)
+    [Panel, BBx, BBy, BBz] = norm2sun(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th)
 end
 
 Panel = fail_mode(Panel, n_fail);

@@ -12,9 +12,9 @@ addpath(genpath(fileparts(which(mfilename))));
 %***************************************************************************************************************************************
 %***************************************************************************************************************************************
 
-n = 2;                   % number of orbits (15)
+n = 1;                   % number of orbits (15)
 dT = 0.5;                   % time step (0.5)
-case_adcs = 3;            % case ADCS (1=sigue las lineas de campo, 2=x mirando a nadir, 3=x perpendicular al plano, 4=paneles al sol)
+case_adcs = 1;            % case ADCS (1=sigue las lineas de campo, 2=x mirando a nadir, 3=x perpendicular al plano, 4=paneles al sol)
 % tipo_panel = 2;           % panel type (1 = galio, 2 = silicio (inutil))                 
 ciclo = 1;                % ciclo de consumos de los componentes (1 = 30s, 2 = 60s) 
 n_fail = 0;               % numero de paneles que fallan (1 = falla 1, 2 = fallan 2, 3 = fallan 3)
@@ -41,9 +41,10 @@ M = 1;                                  % Month of the year March = 1; Feb = 12
 % simulation time and number of points:
 
 npoints = n*T*60/dT + 1;
+npoints = 1e3;
 
 tic
-[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(n, npoints, T, H, ecc, om, th, M, w, case_adcs, true, false, n_fail);
+[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(n, npoints, T, H, ecc, om, th, M, w, case_adcs, true, true, n_fail);
 toc
 
 % I = [I(1) I I(end)];
