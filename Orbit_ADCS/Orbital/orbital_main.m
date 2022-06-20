@@ -15,7 +15,7 @@ position_s = [0;0;0];
 % earth centered body:
 mu_e = astroConstants(13);      % mu earth
 Re_e = astroConstants(23);      % R earth
-omega_e = (15.04*pi)/(180*3600);% earth rotational speed
+% omega_e = (15.04*pi)/(180*3600);% earth rotational speed
 greenwich0 = 0;                 % initial Greenwich position
 
 % earth orbit around sun:
@@ -78,8 +78,7 @@ for k = 1:npoints
 end
 
 %% Magnetic field:
-
-theta_g = (greenwich0);     % rotation w_e.*tspan already implemented in the IGRF function
+theta_g = (greenwich0);     % rotation omega_e.*tspan already implemented in the IGRF function
 XYZ = zeros(npoints,3);
 B_N = zeros(npoints,3);
 for k = 1:npoints
@@ -90,7 +89,7 @@ end
 
 theta = linspace(0, n*2*pi, npoints);
 
-[Panel, BBx, BBy, BBz] =  pointing(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w);
+[Panel, BBx, BBy, BBz] = pointing(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w);
 
 Panel = fail_mode(Panel, n_fail);
 
