@@ -42,7 +42,7 @@ npoints = n*T*60/dT + 1;
 
 pointing = adcs_select(case_adcs);
 
-[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, true, false, false, n_fail);
+[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, true, true, true, n_fail);
 
 % tipo_panel = 2;           % panel type (1 = galio, 2 = silicio (inutil)) 
 % eta_regulador = 0.5;      % rendimiento regulador (0.3-0.6)
