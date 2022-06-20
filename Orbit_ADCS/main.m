@@ -44,7 +44,7 @@ npoints = n*T*60/dT + 1;
 
 pointing = adcs_select(case_adcs);
 
-[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, true, true, true, n_fail);
+[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, true, false, true, n_fail);
 
 % I = [I(1) I I(end)];
 % rho = 1;
