@@ -28,7 +28,7 @@ function [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, vi
 
 >>>>>>> 42c7b6701d52d46b5a613395cbbfcf9a46c42902
         sun_body = A56*A15*sun_dir;
-
+        % qazwsx
         Dot_Zp = [0,0,1]*sun_body;
         Dot_Zn = [0,0,-1]*sun_body;
         Dot_Yp = [0,1,0]*sun_body;
