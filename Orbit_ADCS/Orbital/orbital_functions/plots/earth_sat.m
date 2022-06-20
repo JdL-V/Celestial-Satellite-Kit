@@ -26,7 +26,7 @@ function earth_sat(a, r, tspan, npoints, alpha)
 
     rot_earth = tspan.*om_e;
     R_equator = makehgtform('xrotate', deg2rad(-23.4));
-    for j=1:round(npoints/1000):npoints
+    for j=1:round(npoints/350):npoints
         % ax.CameraTarget=[r(j,1) r(j,2) r(j,3)];
         Txyz = makehgtform('translate',[r(j,1) r(j,2) r(j,3)]);
         Rz = makehgtform('zrotate',rot_earth(j));

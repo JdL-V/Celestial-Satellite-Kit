@@ -10,7 +10,9 @@ function sun_orbit(r_e, R, npoints, visibility)
     % link = plot3(nan,nan,nan,'r','LineWidth',2);
 
     axis equal
-
+    ax = gca;               % get the current axis
+    ax.Clipping = 'off';    % turn clipping off
+    zlim([min([min(R(:,3)) -abs(max(R(:,1))-min(R(:,1)))/8 -abs(max(R(:,2))-min(R(:,2)))/8]), max([max(R(:,3)) abs(max(R(:,1))-min(R(:,1)))/8 abs(max(R(:,2))-min(R(:,2)))/8])])
     %%
     for k = 1:round(npoints/1000):npoints
         set(earth,'XDATA',r_e(k,1))
