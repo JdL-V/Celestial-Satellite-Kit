@@ -1,4 +1,4 @@
-function [I, mu] = mag_2(dt, N, A, J, BBx, B)
+function [I, mu] = mag_3(dt, N, A, J, BBx, B)
     N = [250; 850; 850];
     A = [33^2; 11^2; 11^2]*1e6;
     I = [1; 1; 1];
