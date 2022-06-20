@@ -125,12 +125,12 @@ function dy=pertubed_keplerian_orbit(~,y,mu,J_2,R_e)
 % OUTPUT:
 % dy [1x6] derivative of the state
 r_s = norm([y(1), y(2), y(3)]);
-A_J2 = 0.5*J_2*R_e^2;
+A_J2 = 0.5*J_2*(R_e/r_s)^2;
 
 dy=[y(4) % r_x
     y(5) % r_y
     y(6) % r_z
-    -mu/r_s^3*y(1)*(1 + 3*A_J2/(r_s^2)*(1 - (5/r_s^2)*y(3)^2))   % v_x
-    -mu/r_s^3*y(2)*(1 + 3*A_J2/(r_s^2)*(1 - (5/r_s^2)*y(3)^2))   % v_y
-    -mu/r_s^3*y(3)*(1 + 9*A_J2/(r_s^2)*(1 - (5/r_s^2)*y(3)^2))]; % v_z
+    -mu/r_s^3*y(1)*(1 + 3*A_J2*(1 - 5*(y(3)/r_s^2)))   % v_x
+    -mu/r_s^3*y(2)*(1 + 3*A_J2*(1 - 5*(y(3)/r_s^2)))   % v_y
+    -mu/r_s^3*y(3)*(1 + 9*A_J2*(1 - 5*(y(3)/r_s^2)))]; % v_z
 end
