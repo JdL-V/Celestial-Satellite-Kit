@@ -135,95 +135,11 @@ if plot_panel == true
 end
 
 if plot_earthorbit == true
-    % figure
-    % orbit_spacecraft = plot3(r(:,1),r(:,2),r(:,3),'Color','b','LineWidth',2);
-    % hold on
-    % sc = plot3(nan,nan,nan,'o','MarkerFaceColor','k','MarkerEdgeColor','k');
-
-    % axis equal
-
-    % %%
-    % for k = 1:round(npoints/1000):npoints
-    %     set(sc,'XDATA',r(k,1))
-    %     set(sc,'YDATA',r(k,2))
-    %     set(sc,'ZDATA',r(k,3))
-    %     drawnow
-    % end
-    om_e = 2*pi/86400;
-    h = figure();
-    ax = axes('XLim',[-2*a 2*a], 'YLim',[-2*a 2*a], 'ZLim',[-2*a 2*a]);
-    orb = plot3(r(:,1), r(:,2), r(:,3));
-    grid on
-    hold on
-    axis equal
-    % axis ([-a a -a a -a a ])
-    globe = Celestial_body('earth',1);
-    focus = globe;
-    t1 = hgtransform('Parent', ax);
-    t2 = hgtransform('Parent', ax);
-    t3 = hgtransform('Parent', ax);
-    set(globe, 'Parent', t1);
-    set(focus,'Parent', t2);
-    set(orb,'Parent', t3);
-    sat = plot3(nan,nan,nan,'o','MarkerFaceColor','black','MarkerEdgeColor','black','MarkerSize',7);
-    globe.FaceAlpha = 0.6;
-
-    r_max=norm(max(r));
-    % dummyPlot = plot3(r_max*[1/2,-1,-1,1/2,1/2,-1,-1,1/2], r_max*[1,1,-1,-1,1,1,-1,-1], r_max*[-1,-1,-1,-1,1,1,1,1], 'LineStyle', 'none');
-    xlabel('x')
-    ylabel('y')
-    zlabel('z')
-
-    rot_earth = tspan.*om_e;
-    R_equator = makehgtform('xrotate', deg2rad(-23.4));
-    for j=1:round(npoints/1000):npoints
-        % ax.CameraTarget=[r(j,1) r(j,2) r(j,3)];
-        Txyz = makehgtform('translate',[r(j,1) r(j,2) r(j,3)]);
-        Rz = makehgtform('zrotate',rot_earth(j));
-    %     Ry= makehgtform('scale',9*j);
-        set(t1,'Matrix',Txyz*R_equator*Rz)
-        set(t2,'Matrix',Rz)
-    %     set(t3,'Matrix',Ry)
-        set(sat,'XData',r(j,1),'YData',r(j,2),'ZData',r(j,3));
-        drawnow
-    end
+    earth_sat(a, r, tspan, npoints, 0.6)
 end
 
 if plot_sunorbit == true
-    figure
-    orbit_earth = plot3(r_e(:,1),r_e(:,2),r_e(:,3),'Color','r','LineWidth',2);
-    hold on
-    orbit_spacecraft = plot3(R(:,1),R(:,2),R(:,3),'Color','b','LineWidth',2);
-
-    % sun = plot3(0,0,0,'o','MarkerFaceColor','k','MarkerEdgeColor','k');
-    earth = plot3(nan,nan,nan,'o','MarkerFaceColor','k','MarkerEdgeColor','k');
-    sc = plot3(nan,nan,nan,'o','MarkerFaceColor','k','MarkerEdgeColor','k');
-    % link = plot3(nan,nan,nan,'r','LineWidth',2);
-
-    axis equal
-
-    %%
-    for k = 1:round(npoints/1000):npoints
-        set(earth,'XDATA',r_e(k,1))
-        set(earth,'YDATA',r_e(k,2))
-        set(earth,'ZDATA',r_e(k,3))
-        
-        set(sc,'XDATA',R(k,1))
-        set(sc,'YDATA',R(k,2))
-        set(sc,'ZDATA',R(k,3))
-        
-    %     if visibility(k)
-    %         set(link,'XDATA',[0 R(k,1)])
-    %         set(link,'YDATA',[0 R(k,2)])
-    %         set(link,'ZDATA',[0 R(k,3)])
-    %     else
-    %         set(link,'XDATA',nan)
-    %         set(link,'YDATA',nan)
-    %         set(link,'ZDATA',nan)
-    %     end
-        
-        drawnow
-    end
+    sun_orbit(r_e, R, npoints)
 end
 
 N  = 244;
