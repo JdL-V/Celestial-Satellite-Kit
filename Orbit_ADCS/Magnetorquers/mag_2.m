@@ -10,7 +10,7 @@ function [I, mu] = mag_2(dt, N, A, J, BBx, B)
         Be = norm(cross(BBx(:,k), B(:,k)));
         ddth = 2*(dth2 - dth1)/dt^2;
         I(k-1) = (J*abs(ddth) - D)/(N*A*Be);
-        mu(k-1) = (J*abs(ddth) - D)/(Be); 
+        mu(k-1) = (J*abs(ddth) - D)/Be; 
         % A2 = 1e-6*[30 11 11].^2
         % I2(:,k-1) = (J*ddth - D)/(N*A2.*cross(BBx(:,k), B(:,k)));
     end

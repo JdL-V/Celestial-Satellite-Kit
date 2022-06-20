@@ -51,7 +51,7 @@ raan = raan_0 + d_om_sun*(M - 1)*(365.2411984*24*3600)/12;   % orbital RAAN SSO
 [r_e,~] = plotorbit([r0_e v0_e],0,Tend,npoints,mu_s,0,0);
 
 % S/C orbit propagation around earth:
-[r,v] = plotorbit([r0 v0],0,Tend,npoints,mu_e,1,0);
+[r,v] = plotorbit([r0 v0],0,Tend,npoints,mu_e,0,0);
 
 % S/C orbit propagation around sun:
 R = r + r_e;
@@ -116,17 +116,15 @@ figure
 plot(tspan, [mu(1) mu mu(end)])
 
 N = [250; 850; 850]';
-A = [33^2; 11^2; 11^2]'*1e6;
-I = [1; 1; 1]';
+A = [33^2; 11^2; 11^2]'*1e-6;
+I = [1; 1; 1]'*2e-3;
 
-[mu] = mag_3(dt, tspan, J, BBx, BBy, BBz, B_N', w, N, A, I)
+T_m = mag_3(dt, tspan, J, BBx, BBy, BBz, B_N', w, N, A, I);
 toc
 figure
-plot(tspan, mu(:,1))
+plot(tspan, T_m);
 
 figure
-plot(tspan, mu(:,2))
+plot(tspan, sqrt(sum(T_m.^2, 2)/3));
 
-figure
-plot(tspan, mu(:,3))
 end

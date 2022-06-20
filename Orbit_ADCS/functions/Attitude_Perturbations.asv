@@ -1,4 +1,4 @@
-function bhbs(h, rho_function, a, b, l, v, J, x_cm, M, cd, x_cp_g, M_mag, dip_res, PS, c, q, i)
+function bhbs(h, rho_function, a, b, l, v, J, x_cm, M, cd, x_cp_g)
 %% DATOS:
 alt = 500e3; %km
 R_T = 6378e3; %km
