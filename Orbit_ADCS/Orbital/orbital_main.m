@@ -79,7 +79,7 @@ end
 
 %% Magnetic field:
 
-theta_g = (greenwich0);     % rotation om_e.*tspan already implemented in the IGRF function
+theta_g = (greenwich0);     % rotation w_e.*tspan already implemented in the IGRF function
 XYZ = zeros(npoints,3);
 B_N = zeros(npoints,3);
 for k = 1:npoints
