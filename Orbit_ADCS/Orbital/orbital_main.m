@@ -111,5 +111,22 @@ A2 = 11^2*1e-6;
 J  = 3.131*1e-4;
 dt = tspan(2) - tspan(1);
 [Ix, mu]  = mag_2(dt, N, A1, J, BBx, B_N');
+
+figure
+plot(tspan, [mu(1) mu mu(end)])
+
+N = [250; 850; 850]';
+A = [33^2; 11^2; 11^2]'*1e6;
+I = [1; 1; 1]';
+
+[mu] = mag_3(dt, tspan, J, BBx, BBy, BBz, B_N', w, N, A, I)
 toc
+figure
+plot(tspan, mu(:,1))
+
+figure
+plot(tspan, mu(:,2))
+
+figure
+plot(tspan, mu(:,3))
 end
