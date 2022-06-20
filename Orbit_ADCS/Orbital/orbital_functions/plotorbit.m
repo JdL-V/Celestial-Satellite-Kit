@@ -52,6 +52,7 @@ function [r,v]=plotorbit(y0,tstart,tfinal,npoints,mu,flag,plot,varargin)
 % CHANGELOG:
 %  23/11/2020, Riccardo Majer, Jorge Martínez: creation.
 %  01/06/2022, Jorge Martínez: update - commented displays.
+%  01/06/2022, Jorge Martínez: update - norm computed once (r_s) and fixed J2.
 % ------------------------------------------------------------------------------------------------------------
 
 switch flag
@@ -97,13 +98,14 @@ function dy=keplerian_orbit(~,y,mu)
 %
 % OUTPUT:
 % dy [1x6] derivative of the state
+r_s = norm([y(1), y(2), y(3)]);
 
 dy=[y(4) % r_x
     y(5) % r_y
     y(6) % r_z
-    -mu/norm([y(1),y(2),y(3)])^3.*y(1) % v_x
-    -mu/norm([y(1),y(2),y(3)])^3.*y(2) % v_y
-    -mu/norm([y(1),y(2),y(3)])^3.*y(3) % v_z
+    -mu/r_s^3.*y(1) % v_x
+    -mu/r_s^3.*y(2) % v_y
+    -mu/r_s^3.*y(3) % v_z
     ];
 end
 
@@ -122,11 +124,13 @@ function dy=pertubed_keplerian_orbit(~,y,mu,J_2,R_e)
 %
 % OUTPUT:
 % dy [1x6] derivative of the state
+r_s = norm([y(1), y(2), y(3)]);
+A_J2 = 0.5*J_2*R_e^2;
 
 dy=[y(4) % r_x
     y(5) % r_y
     y(6) % r_z
-    -mu/norm([y(1),y(2),y(3)])^3*y(1)+(3*J_2*mu*R_e^2)/(2*norm([y(1),y(2),y(3)])^5)*((5/norm([y(1),y(2),y(3)])^2)*y(3)-1)*y(1)   % v_x
-    -mu/norm([y(1),y(2),y(3)])^3*y(2)+(3*J_2*mu*R_e^2)/(2*norm([y(1),y(2),y(3)])^5)*((5/norm([y(1),y(2),y(3)])^2)*y(3)-1)*y(2)   % v_y
-    -mu/norm([y(1),y(2),y(3)])^3*y(3)+(3*J_2*mu*R_e^2)/(2*norm([y(1),y(2),y(3)])^5)*((5/norm([y(1),y(2),y(3)])^2)*y(3)-1)*y(3)]; % v_z
+    -mu/r_s^3*y(1)*(1 + 3*A_J2/(r_s^2)*(1 - (5/r_s^2)*y(3)^2))   % v_x
+    -mu/r_s^3*y(2)*(1 + 3*A_J2/(r_s^2)*(1 - (5/r_s^2)*y(3)^2))   % v_y
+    -mu/r_s^3*y(3)*(1 + 9*A_J2/(r_s^2)*(1 - (5/r_s^2)*y(3)^2))]; % v_z
 end
