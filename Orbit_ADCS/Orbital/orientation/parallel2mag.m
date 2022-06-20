@@ -19,7 +19,9 @@ function [Panel, BBx, BBy, BBz] =  parallel2mag(a_e, irr0, npoints, tspan, R, vi
         BBy(:,k) = By/norm(By);
         BBz(:,k) = Bz/norm(Bz);
         A15 = [Bx,By/norm(By),Bz/norm(Bz)]';
-
+        
+        % sun_body: sun direction in body coordinate system
+        % sun_dir: sun direction in sun coordinate system
         sun_body = A56*A15*sun_dir;
 
         Dot_Zp = [0,0,1]*sun_body;

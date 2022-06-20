@@ -1,4 +1,4 @@
-function [I, mu] = mag_2(dt, N, A, J, BBx, B)
+function [I, mu] = mag_2(dt, N, A, J, BBx, BBy, BBz, B)
     D = -1.2591e-8;
     npoints = size(BBx, 2);
     I = zeros(1, npoints - 2);
