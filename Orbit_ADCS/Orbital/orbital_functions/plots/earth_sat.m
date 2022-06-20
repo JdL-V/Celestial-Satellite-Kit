@@ -1,5 +1,5 @@
 function earth_sat(a, r, tspan, npoints, alpha)
-    om_e = 2*pi/86400;
+    om_e = (2*pi)/([23 56 4.09053]*[3600 60 1]');
     h = figure();
     ax = axes('XLim',[-2*a 2*a], 'YLim',[-2*a 2*a], 'ZLim',[-2*a 2*a]);
     orb = plot3(r(:,1), r(:,2), r(:,3));
