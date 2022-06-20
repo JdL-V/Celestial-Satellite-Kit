@@ -14,11 +14,9 @@ addpath(genpath(fileparts(which(mfilename))));
 
 n = 200;                   % number of orbits (15)
 dT = 50;                   % time step (0.5)
-case_adcs = 1;            % case ADCS (1=sigue las lineas de campo, 2=x mirando a nadir, 3=x perpendicular al plano, 4=paneles al sol)
-% tipo_panel = 2;           % panel type (1 = galio, 2 = silicio (inutil))                 
+case_adcs = 1;            % case ADCS (1=sigue las lineas de campo, 2=x mirando a nadir, 3=x perpendicular al plano, 4=paneles al sol)        
 ciclo = 1;                % ciclo de consumos de los componentes (1 = 30s, 2 = 60s) 
-n_fail = 0;               % numero de paneles que fallan (1 = falla 1, 2 = fallan 2, 3 = fallan 3)
-% eta_regulador = 0.5;      % rendimiento regulador (0.3-0.6)
+n_fail = [];               % failed panel vector (none = [], 1+3+4 = [1 3 4]) (zp=1 zn=2 yp=3 yn=4)
 H = 12;                  % Hora solar [horas]
 w = 0.1;                  % velocidad de rotación [rad/s] (0.01,0.1)
 
@@ -45,6 +43,9 @@ npoints = n*T*60/dT + 1;
 pointing = adcs_select(case_adcs);
 
 [tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, true, false, false, n_fail);
+
+% tipo_panel = 2;           % panel type (1 = galio, 2 = silicio (inutil)) 
+% eta_regulador = 0.5;      % rendimiento regulador (0.3-0.6)
 
 % I = [I(1) I I(end)];
 % rho = 1;

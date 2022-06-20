@@ -1,5 +1,5 @@
 function pointing = adcs_select(case_adcs)
-    if     case_adcs == 1   %% Magnetic orientation
+    if case_adcs == 1       %% Magnetic orientation
         pointing = @ parallel2mag;
 
     elseif case_adcs == 2   %% Earth pointing case. 
