@@ -123,6 +123,7 @@ I = [1; 1; 1]'*2e-3;
 [T_mx, T_my, T_mz] = mag_3(dt, tspan, J, BBx, BBy, BBz, B_N', w, N, A, I);
 toc
 
+% blue: x // orange: y // yellow: z
 figure
 plot(tspan, T_mx);
 title('mag3 x')
