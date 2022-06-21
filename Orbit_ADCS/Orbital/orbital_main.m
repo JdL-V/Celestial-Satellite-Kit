@@ -119,12 +119,24 @@ N = [250; 850; 850]';
 A = [33^2; 11^2; 11^2]'*1e-6;
 I = [1; 1; 1]'*2e-3;
 
-T_m = mag_3(dt, tspan, J, BBx, BBy, BBz, B_N', w, N, A, I);
+[T_mx, T_my, T_mz] = mag_3(dt, tspan, J, BBx, BBy, BBz, B_N', w, N, A, I);
 toc
 figure
-plot(tspan, T_m);
+plot(tspan, T_mx);
 
 figure
-plot(tspan, sqrt(sum(T_m.^2, 2)/3));
+plot(tspan, sqrt(sum(T_mx.^2, 2)/3));
+
+figure
+plot(tspan, T_my);
+
+figure
+plot(tspan, sqrt(sum(T_my.^2, 2)/3));
+
+figure
+plot(tspan, T_mz);
+
+figure
+plot(tspan, sqrt(sum(T_mz.^2, 2)/3));
 
 end
