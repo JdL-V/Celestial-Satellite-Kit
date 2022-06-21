@@ -114,6 +114,7 @@ dt = tspan(2) - tspan(1);
 
 figure
 plot(tspan, [mu(1) mu mu(end)])
+title('mag2')
 
 N = [250; 850; 850]';
 A = [33^2; 11^2; 11^2]'*1e-6;
@@ -121,22 +122,29 @@ I = [1; 1; 1]'*2e-3;
 
 [T_mx, T_my, T_mz] = mag_3(dt, tspan, J, BBx, BBy, BBz, B_N', w, N, A, I);
 toc
-figure
-plot(tspan, T_mx);
 
 figure
-plot(tspan, sqrt(sum(T_mx.^2, 2)/3));
+plot(tspan, T_mx);
+title('mag3 x')
 
 figure
 plot(tspan, T_my);
-
-figure
-plot(tspan, sqrt(sum(T_my.^2, 2)/3));
+title('mag3 y')
 
 figure
 plot(tspan, T_mz);
+title('mag3 z')
 
-figure
-plot(tspan, sqrt(sum(T_mz.^2, 2)/3));
+% figure
+% plot(tspan, sqrt(sum(T_mx.^2, 2)/3));
+% title('mag3 x sqrt')
+
+% figure
+% plot(tspan, sqrt(sum(T_my.^2, 2)/3));
+% title('mag3 y sqrt')
+
+% figure
+% plot(tspan, sqrt(sum(T_mz.^2, 2)/3));
+% title('mag3 z sqrt')
 
 end
