@@ -1,4 +1,4 @@
-function [T_m] = mag_3(dt, tspan, J, BBx, BBy, BBz, B, w, N, A, I)
+function [T_mx, T_my, T_mz] = mag_3(dt, tspan, J, BBx, BBy, BBz, B, w, N, A, I)
     npoints = length(tspan);
     T_m = zeros(npoints, 3);
     w = 0;
@@ -10,6 +10,8 @@ function [T_m] = mag_3(dt, tspan, J, BBx, BBy, BBz, B, w, N, A, I)
         A15 = [BBx(:,k), BBy(:,k)/norm(BBy(:,k)), BBz(:,k)/norm(BBz(:,k))]';
         B_sat = A56*A15*B(:,k);
         
-        T_m(k,:) = cross(N.*I.*A, B_sat);
+        T_mx(k,:) = cross(N.*I.*A.*[1 0 0], B_sat);
+        T_my(k,:) = cross(N.*I.*A.*[0 1 0], B_sat);
+        T_mz(k,:) = cross(N.*I.*A.*[0 0 1], B_sat);
     end
 end
