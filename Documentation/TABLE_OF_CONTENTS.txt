@@ -1,5 +1,26 @@
-TABLE OF CONTENTS
+--- T A B L E  O F  C O N T E N T S ---
+
+A	M A G N E T O R Q U E R S 
 
 A001_Delft-Magnetorquer-Desing
-A002_
+A002_Delft-PQ
+A003_Magnetism
+
+B	C O N T R O L  L A W
+
+B001_3-axis-Control-Law
+B002_Fully-Magnetic-Attitude-Control
+B003_JGCD
+B004_UPMSat-JGCD
+B005_Torque-Rudder
+
+C	Q U A T E R N I O N S
+
+C001_quaternion-tutorial
+
+D	A T T I T U D E  D E T E R M I N A T I O N
+
+D001_LEO-Attitude-Determination
+
+
 	
