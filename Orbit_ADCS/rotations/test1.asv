@@ -37,32 +37,29 @@ xlim([-1 1]);
 ylim([-1 1]);
 zlim([-1 1]);
 hold on
-b = [2  2  2  2, -2 -2 -2 -2, 2  2 -2 -2,  2  2 -2 -2,  2  2 -2 -2,  2  2 -2 -2;
+hQuiver = quiver3(O,O,O,i,j,k,'k');
+b = [1  1  1  1, -1 -1 -1 -1, 1  1 -1 -1,  1  1 -1 -1,  1  1 -1 -1,  1  1 -1 -1;
      1  1 -1 -1,  1  1 -1 -1, 1  1  1  1, -1 -1 -1 -1,  1 -1 -1  1,  1 -1 -1  1;
      1 -1 -1  1,  1 -1 -1  1, 1 -1 -1  1,  1 -1 -1  1,  1  1  1  1, -1 -1 -1 -1];
-a = zeros(size(b));
+a = 
+
+ppp1 = patch(0.4*a(1, 1:4), 0.2*a(2, 1:4), 0.2*a(3, 1:4), 'c');
+ppp2 = patch(0.4*a(1, 5:8), 0.2*a(2, 5:8), 0.2*a(3, 5:8), 'c');
+ppp3 = patch(0.4*a(1, 9:12), 0.2*a(2, 9:12), 0.2*a(3, 9:12), 'c');
+ppp4 = patch(0.4*a(1, 13:16), 0.2*a(2, 13:16), 0.2*a(3, 13:16), 'c');
+ppp5 = patch(0.4*a(1, 17:20), 0.2*a(2, 17:20), 0.2*a(3, 17:20), 'c');
+ppp6 = patch(0.4*a(1, 21:24), 0.2*a(2, 21:24), 0.2*a(3, 21:24), 'c');
+
+ppp = patch(0.4*a(1,:), 0.2*a(2,:), 0.2*a(3,:),'c')
+delete(ppp)
+delete(ppp1); delete(ppp2); delete(ppp3); delete(ppp4); delete(ppp5); delete(ppp6)
 
 for kk = 1:round(npoints/1000):length(tspan)
 
 I = Y(kk, 1:3)';
 J = Y(kk, 4:6)';
 K = Y(kk, 7:9)';
-
-for kn = 1:24
-    a(:,kn) = [I J K]'*b(:,kn);
-end
-try
-    delete(ppp1); delete(ppp2); delete(ppp3); delete(ppp4); delete(ppp5); delete(ppp6)
-    delete(hQuiver)
-catch
-end
-ppp1 = patch(0.2*a(1, 1:4), 0.2*a(2, 1:4), 0.2*a(3, 1:4), 'c');
-ppp2 = patch(0.2*a(1, 5:8), 0.2*a(2, 5:8), 0.2*a(3, 5:8), 'c');
-ppp3 = patch(0.2*a(1, 9:12), 0.2*a(2, 9:12), 0.2*a(3, 9:12), 'c');
-ppp4 = patch(0.2*a(1, 13:16), 0.2*a(2, 13:16), 0.2*a(3, 13:16), 'c');
-ppp5 = patch(0.2*a(1, 17:20), 0.2*a(2, 17:20), 0.2*a(3, 17:20), 'c');
-ppp6 = patch(0.2*a(1, 21:24), 0.2*a(2, 21:24), 0.2*a(3, 21:24), 'c');
-
+delete(hQuiver)
 hQuiver = quiver3(O,O,O,I,J,K,'b');
 drawnow
 % pause(0.05)
@@ -86,7 +83,7 @@ function du = FF(t, u, I0)
           (A - C)/B*w(1)*w(3);
           (B - A)/C*w(2)*w(1)];
     
-    M = [rand*eps 1.3 -1]'*1e-5;
+    M = [rand*eps 1.3 -1]'*1e-6;
 
     du = [dI; dJ; dK; dw + M];
     t
