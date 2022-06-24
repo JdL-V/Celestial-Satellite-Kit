@@ -85,7 +85,7 @@ function du = FF(t, u, I0)
     dw = -[(C - B)/A*w(2)*w(3);
           (A - C)/B*w(1)*w(3);
           (B - A)/C*w(2)*w(1)];
-    
+
     M = [rand*eps 1.3 -1]'*1e-5;
 
     du = [dI; dJ; dK; dw + M];
