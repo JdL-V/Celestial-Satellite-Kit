@@ -40,10 +40,12 @@ zlim([-1 1]);
 view([az+180 el])
 text(i,j,k, {'i','j','k'})
 hold on
-b = [2  2  2  2, -2 -2 -2 -2, 2  2 -2 -2,  2  2 -2 -2,  2  2 -2 -2,  2  2 -2 -2;
-     1  1 -1 -1,  1  1 -1 -1, 1  1  1  1, -1 -1 -1 -1,  1 -1 -1  1,  1 -1 -1  1;
-     1 -1 -1  1,  1 -1 -1  1, 1 -1 -1  1,  1 -1 -1  1,  1  1  1  1, -1 -1 -1 -1]*0.2;
-a = zeros(size(b));
+
+filename    = 'POCKET_CUBE.STL';
+[p,t,tnorm] = import_stl_fast2(filename,1);
+p = p/1e2; % scaling
+p = [p(:,1) - max(p(:,1))/2,  p(:,2) - max(p(:,2))/2,  p(:,3) - max(p(:,3))/2]; % centering
+p2 = p;
 
 for kk = [1:round(npoints/1000):length(tspan) npoints]
     %1:round(npoints/tspan(end)/norm(y0(end-2:end))*0.06):length(tspan)
@@ -52,21 +54,17 @@ I = Y(kk, 1:3)';
 J = Y(kk, 4:6)';
 K = Y(kk, 7:9)';
 
-for kn = 1:24
-    a(:,kn) = [I J K]'*b(:,kn);
+for kn = 1:size(p,1)
+    p2(kn,:) = ([I J K]'*p(kn,:)')';
 end
+
 try
-    delete(ppp1); delete(ppp2); delete(ppp3); delete(ppp4); delete(ppp5); delete(ppp6)
+    delete(ppp)
     delete(hQuiver)
 catch
 end
-ppp1 = patch(a(1, 1:4), a(2, 1:4), a(3, 1:4), 'c');
-ppp2 = patch(a(1, 5:8), a(2, 5:8), a(3, 5:8), 'c');
-ppp3 = patch(a(1, 9:12), a(2, 9:12), a(3, 9:12), 'c');
-ppp4 = patch(a(1, 13:16), a(2, 13:16), a(3, 13:16), 'c');
-ppp5 = patch(a(1, 17:20), a(2, 17:20), a(3, 17:20), 'c');
-ppp6 = patch(a(1, 21:24), a(2, 21:24), a(3, 21:24), 'c');
 
+ppp = patch('vertices',p2,'faces',t,'FaceColor','c','edgecolor','k');
 hQuiver = quiver3(O,O,O,I,J,K,'b');
 drawnow
 title(['t = ' num2str(round(time(kk))) ' s'])
