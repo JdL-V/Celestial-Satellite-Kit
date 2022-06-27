@@ -47,8 +47,9 @@ p = p/1e2; % scaling
 p = [p(:,1) - max(p(:,1))/2,  p(:,2) - max(p(:,2))/2,  p(:,3) - max(p(:,3))/2]; % centering
 p2 = p;
 
-for kk = [1:round(npoints/1000):length(tspan) npoints]
-    %1:round(npoints/tspan(end)/norm(y0(end-2:end))*0.06):length(tspan)
+% plot_speed = round(npoints/tspan(end)/norm(y0(end-2:end))*0.06);
+plot_speed = round(npoints/2000);
+for kk = [1:plot_speed:length(tspan) npoints]
 
 I = Y(kk, 1:3)';
 J = Y(kk, 4:6)';
@@ -70,7 +71,7 @@ drawnow
 title(['t = ' num2str(round(time(kk))) ' s'])
 end
 
-function du = FF(t, u, I0)
+function du = FF(~, u, I0)
 i = [1 0 0]';
 j = [0 1 0]';
 k = [0 0 1]';
@@ -92,8 +93,8 @@ k = [0 0 1]';
           (A - C)/B*w(1)*w(3);
           (B - A)/C*w(2)*w(1)];
     
-    M = [1e-4 J'*j+K'*j J'*k+K'*k]'*1e-5;
+    M = [1e-4*I'*i J'*j+K'*j J'*k+K'*k]'*1e-8;
 
-    du = [dI; dJ; dK; dw + M];
+    du = [dI; dJ; dK; dw + M./[A B C]'];
 %     t
 end

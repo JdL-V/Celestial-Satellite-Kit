@@ -72,7 +72,7 @@ drawnow
 title(['t = ' num2str(round(time(kk))) ' s'])
 end
 
-function du = FF(t, u, I0)
+function du = FF(~, u, I0)
 i = [1 0 0]';
 j = [0 1 0]';
 k = [0 0 1]';
@@ -94,7 +94,7 @@ k = [0 0 1]';
           (A - C)/B*w(1)*w(3);
           (B - A)/C*w(2)*w(1)];
     
-    M = [1e-4 J'*j+K'*j J'*k+K'*k]'*1e-5;
+    M = [1e-4*I'*i J'*j+K'*j J'*k+K'*k]'*1e-5;
 
     du = [dI; dJ; dK; dw + M];
 %     t
