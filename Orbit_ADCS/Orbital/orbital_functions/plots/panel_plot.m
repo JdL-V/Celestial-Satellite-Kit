@@ -10,7 +10,6 @@ function panel_plot(BBx, BBy, BBz, tspan, visibility, T, Panel)
     figure
     plot(tspan, BBz)
     xlim([0,max(tspan)])
-    T = T*60;
 
     figure
     plot(tspan/T,visibility,'k','LineWidth',1.5)

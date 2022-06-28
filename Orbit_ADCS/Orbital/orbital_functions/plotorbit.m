@@ -1,4 +1,4 @@
-function [r,v]=plotorbit(y0,tstart,tfinal,npoints,mu,flag,plot,varargin)
+function [r,v] = plotorbit(solver, y0, tstart, tfinal, npoints, mu, flag, plot, varargin)
 
 % plotorbit.m - propagate the orbit from the initial state y0 in the timespan from tstart to tfinal.
 %
@@ -73,7 +73,7 @@ if flag
     [~,Y]=ode113(@(t,y) pertubed_keplerian_orbit(t,y,mu,J_2,R_e),tspan,y0,options);
 %     disp('pertubed');
 else
-    [~,Y]=ode113(@(t,y) keplerian_orbit(t,y,mu),tspan,y0,options);
+    [~,Y]=solver(@(t,y) keplerian_orbit(t,y,mu),tspan,y0,options);
 %     disp('normal');
 end
 r=[Y(:,1),Y(:,2),Y(:,3)];

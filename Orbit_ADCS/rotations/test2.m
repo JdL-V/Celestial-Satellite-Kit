@@ -17,13 +17,14 @@ I0 = [A 0 0;
       0 0 C];
 
 %% ode
+solver = @ ode89;
 npoints = 10000;
 tspan = linspace(0, 95*60*1, npoints);
-y0 = [i; j; k; 0.01 + rand*eps; rand*eps; rand*eps];
+y0 = [i; j; k; 0.1 + rand*eps; rand*eps; rand*eps];
 
 tic
 options = odeset('RelTol',1e-13, 'AbsTol',1e-14);
-[time, Y] = ode113(@(t,y) FF(t, y, I0), tspan, y0, options);
+[time, Y] = solver(@(t,y) FF(t, y, I0), tspan, y0, options);
 toc
 
 %% plot

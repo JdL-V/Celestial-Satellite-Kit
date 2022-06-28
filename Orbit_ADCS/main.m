@@ -11,8 +11,8 @@ addpath(genpath(fileparts(which(mfilename))));
 %***************************************************************************************************************************************
 %***************************************************************************************************************************************
 
-n = 2;                   % number of orbits
-dT = 0.5;                 % time step (0.5)
+n = 200;                   % number of orbits
+dT = 0.5e1;                 % time step (0.5)
 case_adcs = 3;            % case ADCS (1=x follows field lines, 2=x pointing to nadir, 3=x perpendicular to the orbital plane, 4=panels pointing to sun)        
 ciclo = 1;                % ciclo de consumos de los componentes (1 = 30s, 2 = 60s) 
 n_fail = [];               % Failed panels (none = [], 1+3+4 = [1 3 4]) (zp=1 zn=2 yp=3 yn=4)
@@ -22,14 +22,14 @@ w = 0.1;                  % Rotation speed [rad/s] (0.01,0.1)
 %***************************************************************************************************************************************
 %***************************************************************************************************************************************
 
-
+solver = @ ode89; % change to ode113 for older matlab versions
 
 % spacecraft orbit around earth:
 h = 500;
 mu_e = astroConstants(13);      % mu earth
 Re_e = astroConstants(23);      % R earth
 a = Re_e + h;
-T = round(2*pi*sqrt(a^3/mu_e)/dT)/60*dT;         % orbit period S/C around earth [min]
+T = round(2*pi*sqrt(a^3/mu_e));         % orbit period S/C around earth [sec]
 ecc = 0;
 om = deg2rad(0);
 th = deg2rad(0);
@@ -37,11 +37,14 @@ M = 1;                                  % Month of the year March = 1; Feb = 12
 
 % simulation time and number of points:
 
-npoints = n*T*60/dT + 1;
+npoints = n*T/dT + 1;
 
 pointing = adcs_select(case_adcs);
 
-[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, true, false, false, n_fail);
+plot_panel = true;
+plot_sunorbit = false;
+plot_earthorbit = false;
+[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(solver, pointing, n, npoints, T, H, ecc, om, th, M, w, plot_panel, plot_sunorbit, plot_earthorbit, n_fail);
 
 % tipo_panel = 2;           % panel type (1 = galio, 2 = silicio (inutil)) 
 % eta_regulador = 0.5;      % rendimiento regulador (0.3-0.6)

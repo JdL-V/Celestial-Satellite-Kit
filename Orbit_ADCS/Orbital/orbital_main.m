@@ -1,5 +1,5 @@
 
-function [tspan, theta, Panel, beta, visibility, Ix, mu] = orbital_main(pointing, n, npoints, T, H, ecc, om, th, M, w, plot_panel, plot_sunorbit, plot_earthorbit, n_fail)
+function [tspan, theta, Panel, beta, visibility, Ix, mu] = orbital_main(solver, pointing, n, npoints, T, H, ecc, om, th, M, w, plot_panel, plot_sunorbit, plot_earthorbit, n_fail)
 tic
 %% Costants and initial conditions:
 AU = astroConstants(2);         % distance 1AU in km
@@ -26,7 +26,7 @@ raan_e = deg2rad(-11.26064);
 om_e = deg2rad(102.94719);
 
 % simulation time and number of points:
-Tend = n*T*60;
+Tend = n*T;
 tspan = linspace(0,Tend,npoints)';
 
 %% CALCULATIONS:
@@ -35,7 +35,7 @@ tspan = linspace(0,Tend,npoints)';
 [r0_e,v0_e] = kep2car(a_e,ecc_e,inc_e,raan_e,om_e,th_e,mu_s);
 
 % S/C initial position around earth:
-a = (mu_e*(T*60/(2*pi))^2)^(1/3);
+a = (mu_e*(T/(2*pi))^2)^(1/3);
 
 % SSO case
 J2 = astroConstants(9);
@@ -48,10 +48,10 @@ raan = raan_0 + d_om_sun*(M - 1)*(365.2411984*24*3600)/12;   % orbital RAAN SSO
 [r0,v0] = kep2car(a,ecc,inc,raan,om,th,mu_e);
 
 % earth orbit propagation around sun:
-[r_e,~] = plotorbit([r0_e v0_e],0,Tend,npoints,mu_s,0,0);
+[r_e,~] = plotorbit(solver, [r0_e v0_e], 0, Tend, npoints, mu_s, 0, 0);
 
 % S/C orbit propagation around earth:
-[r,v] = plotorbit([r0 v0],0,Tend,npoints,mu_e,0,0);
+[r,v] = plotorbit(solver, [r0 v0], 0, Tend, npoints, mu_e, 0, 0);
 
 % S/C orbit propagation around sun:
 R = r + r_e;
