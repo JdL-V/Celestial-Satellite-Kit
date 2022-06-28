@@ -11,7 +11,7 @@ addpath(genpath(fileparts(which(mfilename))));
 %***************************************************************************************************************************************
 %***************************************************************************************************************************************
 
-n = 2;                   % number of orbits
+n = 1;                   % number of orbits
 dT = 0.5;                 % time step (0.5)
 case_adcs = 3;            % case ADCS (1=x follows field lines, 2=x pointing to nadir, 3=x perpendicular to the orbital plane, 4=panels pointing to sun)        
 ciclo = 1;                % ciclo de consumos de los componentes (1 = 30s, 2 = 60s) 
@@ -44,7 +44,8 @@ pointing = adcs_select(case_adcs);
 plot_panel = true;
 plot_sunorbit = false;
 plot_earthorbit = false;
-[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(solver, pointing, n, npoints, T, H, ecc, om, th, M, w, plot_panel, plot_sunorbit, plot_earthorbit, n_fail);
+plot_rot = true;
+[tspan, theta, Panel, beta, visibility, I, mu] = orbital_main(solver, pointing, n, npoints, T, H, ecc, om, th, M, w, plot_panel, plot_sunorbit, plot_earthorbit, plot_rot, n_fail);
 
 % tipo_panel = 2;           % panel type (1 = galio, 2 = silicio (inutil)) 
 % eta_regulador = 0.5;      % rendimiento regulador (0.3-0.6)
