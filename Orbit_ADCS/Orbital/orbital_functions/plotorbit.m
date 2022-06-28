@@ -70,7 +70,7 @@ tspan=linspace(tstart,tfinal,npoints);
 if flag
     R_e=6378.137;
     J_2=0.00108263;
-    [~,Y]=ode113(@(t,y) pertubed_keplerian_orbit(t,y,mu,J_2,R_e),tspan,y0,options);
+    [~,Y]=solver(@(t,y) pertubed_keplerian_orbit(t,y,mu,J_2,R_e),tspan,y0,options);
 %     disp('pertubed');
 else
     [~,Y]=solver(@(t,y) keplerian_orbit(t,y,mu),tspan,y0,options);

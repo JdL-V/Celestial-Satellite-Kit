@@ -51,7 +51,19 @@ raan = raan_0 + d_om_sun*(M - 1)*(365.2411984*24*3600)/12;   % orbital RAAN SSO
 [r_e,~] = plotorbit(solver, [r0_e v0_e], 0, Tend, npoints, mu_s, 0, 0);
 
 % S/C orbit propagation around earth:
-[r,v] = plotorbit(solver, [r0 v0], 0, Tend, npoints, mu_e, 0, 0);
+% Definition of moments of inertia
+A = 1.578e-4;
+B = 3.131e-4;
+C = 3.093e-4;
+
+I0 = [A 0 0;
+      0 B 0;
+      0 0 C];
+      
+% initial conditions for rotations
+y02 = [i; j; k; 0.1 + rand*eps; rand*eps; rand*eps];
+
+[r,v] = plotorbit2(I0, solver, [r0 v0, y02'], 0, Tend, npoints, mu_e, 0, 0);
 
 % S/C orbit propagation around sun:
 R = r + r_e;
