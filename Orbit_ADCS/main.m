@@ -11,7 +11,7 @@ addpath(genpath(fileparts(which(mfilename))));
 %***************************************************************************************************************************************
 %***************************************************************************************************************************************
 
-n = 1;                   % number of orbits
+n = 2;                   % number of orbits
 dT = 0.5;                 % time step (0.5)
 case_adcs = 3;            % case ADCS (1=x follows field lines, 2=x pointing to nadir, 3=x perpendicular to the orbital plane, 4=panels pointing to sun)        
 ciclo = 1;                % ciclo de consumos de los componentes (1 = 30s, 2 = 60s) 
