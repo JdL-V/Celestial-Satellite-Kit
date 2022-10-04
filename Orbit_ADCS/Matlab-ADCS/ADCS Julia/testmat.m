@@ -6,6 +6,7 @@ EA = EulerRot;
 PRV = PRVRot;
 EP = EPRot;
 CRP = CRPRot;
+MRP = MRPRot;
 
 dcm = K.DCM(eye(3,3),'B0', 'N0');
 ea = K.EulerAng([1,pi/4,1],[3,2,1],'B0', 'N0');
