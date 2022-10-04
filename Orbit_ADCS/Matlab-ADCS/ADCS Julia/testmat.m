@@ -2,16 +2,16 @@ addpath(genpath(fileparts(which(mfilename))));
 
 K = types;
 
-EA = EulerRot;
+EA  = EulerRot;
 PRV = PRVRot;
-EP = EPRot;
+EP  = EPRot;
 CRP = CRPRot;
 MRP = MRPRot;
 
 dcm = K.DCM(eye(3,3),'B0', 'N0');
-ea = K.EulerAng([1,pi/4,1],[3,2,1],'B0', 'N0');
+ea  = K.EulerAng([1,pi/4,1],[3,2,1],'B0', 'N0');
 prv = K.PRV(pi/2,[1,0,0],'B0', 'N0');
-ep = K.quaternion([0.6301, 1.0502, -0.6301, -1.0502],'B0', 'N0');
+ep  = K.quaternion([0.6301, 1.0502, -0.6301, -1.0502],'B0', 'N0');
 crp = K.CRP([0.1, 0.2, 0.3],'B0', 'N0');
 mrp = K.MRP([0.1, 0.2, 0.3],'B0', 'N0');
 
@@ -32,3 +32,21 @@ EP.PRV2EP(prv)
 EP.SumEP(ep,ep)
 EP.EP2om(ep.x)
 EP.om2EP(ep.x)
+
+CRP.CRP2dcm(crp)
+CRP.dcm2CRP(dcm)
+CRP.CRP2PRV(crp)
+CRP.PRV2CRP(prv)
+CRP.SumCRP(crp,crp)
+CRP.CRP2om(crp.x)
+CRP.om2CRP(crp.x) 
+
+MRP.MRP2dcm(mrp)
+MRP.dcm2MRP(dcm)
+MRP.MRP2PRV(mrp)
+MRP.PRV2MRP(prv)
+MRP.MRP2CRP(mrp)
+MRP.CRP2MRP(crp)
+MRP.SumMRP(mrp,mrp)
+MRP.MRP2om(mrp.x)
+MRP.om2MRP(mrp.x)
