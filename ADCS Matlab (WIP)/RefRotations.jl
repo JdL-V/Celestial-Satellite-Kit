@@ -1,5 +1,0 @@
-include("Rotations/EulerRot.jl")
-include("Rotations/PRVRot.jl")
-include("Rotations/EPRot.jl")
-include("Rotations/CRPRot.jl")
-include("Rotations/MRPRot.jl")
