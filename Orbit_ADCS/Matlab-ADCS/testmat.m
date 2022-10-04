@@ -1,6 +1,6 @@
 addpath(genpath(fileparts(which(mfilename))));
 
-K = types;
+TP = types;
 
 EA  = EulerRot;
 PRV = PRVRot;
@@ -8,12 +8,12 @@ EP  = EPRot;
 CRP = CRPRot;
 MRP = MRPRot;
 
-dcm = K.DCM(eye(3,3),'B0', 'N0');
-ea  = K.EulerAng([1,pi/4,1],[3,2,1],'B0', 'N0');
-prv = K.PRV(pi/2,[1,0,0],'B0', 'N0');
-ep  = K.quaternion([0.6301, 1.0502, -0.6301, -1.0502],'B0', 'N0');
-crp = K.CRP([0.1, 0.2, 0.3],'B0', 'N0');
-mrp = K.MRP([0.1, 0.2, 0.3],'B0', 'N0');
+dcm = TP.DCM(eye(3,3),'B0', 'N0');
+ea  = TP.EulerAng([1,pi/4,1],[3,2,1],'B0', 'N0');
+prv = TP.PRV(pi/2,[1,0,0],'B0', 'N0');
+ep  = TP.quaternion([0.6301, 1.0502, -0.6301, -1.0502],'B0', 'N0');
+crp = TP.CRP([0.1, 0.2, 0.3],'B0', 'N0');
+mrp = TP.MRP([0.1, 0.2, 0.3],'B0', 'N0');
 
 EA.euler2dcm(ea)
 EA.dcm2euler(dcm,'ZYX')
