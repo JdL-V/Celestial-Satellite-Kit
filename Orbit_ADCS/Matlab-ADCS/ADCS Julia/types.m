@@ -3,8 +3,8 @@ function var = types
     var.EulerAng    = @EulerAng;
     var.PRV         = @PRV;
     var.quaternion  = @quaternion;
-    var.CRP         = @quaternion;
-    var.MRP         = @quaternion;
+    var.CRP         = @CRP;
+    var.MRP         = @MRP;
 end
 
 function var = DCM(Mat, outFrame, inFrame)
