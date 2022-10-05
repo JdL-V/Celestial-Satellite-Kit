@@ -20,7 +20,7 @@ function [varargout] = dop853(OdeFcn,tspan,y0,options,varargin)
 %     Matlab version:
 %     Denis Bichsel
 %     Rue des Deurres 58
-%     2000 Neuchâtel
+%     2000 Neuchï¿½tel
 %     Suisse
 %     dbichsel@infomaniak.ch
 %     Version end of 2015
@@ -107,8 +107,8 @@ function [varargout] = dop853(OdeFcn,tspan,y0,options,varargin)
 % See DOP54D DOP853 DOP853D RDPGET RDPSET
 % ------------------------------------------------------------------------
 %
-% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS
-% IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ï¿½AS
+% ISï¿½ AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
 % TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
 % PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR
 % CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
@@ -359,7 +359,10 @@ return
 % ------------------------------------------------------------------------
 % ------------------------------------------------------------------------
 function [varargout] = dop853solver(OdeFcn,tspan,y,Op,varargin)
-
+try
+    global Dose
+catch
+end
 Solver_Name = 'dop853solver';
 
 % ------- INPUT PARAMETERS
@@ -551,7 +554,7 @@ Reject = false;
 
 % ---------------------------
 % Coefficients values for dop54
-% See Hairer Université de Genève
+% See Hairer Universitï¿½ de Genï¿½ve
 % ---------------------------
 % c: time increment coefficients
 c     = zeros(1,16);
@@ -1034,6 +1037,10 @@ while ~Done
                     end
                     tout(nout)   = t;
                     yout(nout,:) = y';
+                    try
+                        yout(nout,:) = Dose(yout(nout,:));
+                    catch
+                    end
                 case 2          % Computed points, with refinement
                     nout         = nout + 1;
                     tout(nout)   = t;
@@ -1050,6 +1057,11 @@ while ~Done
                     yinterp      = ntrprad(tinterp,t,h,cont);
                     tout(ii)     = tinterp;
                     yout(ii,:)   = yinterp;
+                    try
+                        yout(ii,:) = Dose(yout(ii,:))
+                        yout(nout,:) = Dose(yout(nout,:))
+                    catch
+                    end
                 case 3          % Output only at tspan points
                     while ( PosNeg > 0 && t<= tspan(nout+1) && tspan(nout+1) < tph || ...
                             PosNeg < 0 && t>= tspan(nout+1) && tspan(nout+1) > tph)
@@ -1057,6 +1069,10 @@ while ~Done
                         yinterp      = ntrprad(tspan(nout),t,h,cont);
                         tout(nout)   = tspan(nout);
                         yout(nout,:) = yinterp';  % Column output
+                        try
+                            yout(nout,:) = Dose(yout(nout,:));
+                        catch
+                        end
                     end
             end
         end
@@ -1124,6 +1140,10 @@ if OutputNbr > 0
     yout(nout,:) = y';
     tout         = tout(1:nout);
     yout         = yout(1:nout,:);
+    try
+        yout(nout,:) = Dose(yout(nout,:));
+    catch
+    end
     varargout = {tout,yout};
     if EventsExist
         varargout = [varargout,{teout,yeout,ieout}];
@@ -1349,7 +1369,7 @@ for k = 1: NE1v
             end
             tRel = abs(t1N-t2N)*tRelTol < max(abs(t1N),abs(t2N));
             tAbs = abs(t1N-t2N) < tAbsTol;
-            if abs(ENew) < EAbsTol && tRel && tAbs  % On a trouvé
+            if abs(ENew) < EAbsTol && tRel && tAbs  % On a trouvï¿½
                 break
             else
                 % Regula falsi or dichotomy

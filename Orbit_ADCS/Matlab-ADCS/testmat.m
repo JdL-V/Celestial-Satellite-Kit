@@ -1,6 +1,10 @@
 addpath(genpath(fileparts(which(mfilename))));
+clc
+clear
+close all
 
 TP = types;
+global ROT
 ROT = RotModule;
 
 dcm = TP.DCM(eye(3,3),'B0', 'N0');
@@ -66,3 +70,39 @@ toc
 tic
 t4 = OLAE([v1b v2b], [v1n v2n],[1., 1.]).Mat;
 toc
+
+optiondop = rdpset('RelTol',1e-7,'AbsTol',1e-7,'Refine',10);
+
+[tout, uout] = ROT.EPdiff(@fq2,linspace(0,60,1e3),[1 0 0 0],optiondop);
+% a = [];
+% for nnn = 1:size(uout,1)
+%     a = [a norm(uout(nnn,:)) - 1];
+% end
+% max(abs(a))
+plot(tout,uout)
+
+Om0 = 0.5;
+u0 = [0., 0., 0., 3/5*Om0, 0., 4/5*Om0];
+
+[tout, uout] = ROT.MRPdiff(@fF3,linspace(0,60,1e3),u0,optiondop);
+figure
+plot(tout,uout(:,1:3))
+figure
+plot(tout,uout(:,4:6))
+
+function var = fq2(t, u)
+    global ROT
+    w = @(t) deg2rad(50).*[sin(0.1*t), 0.01, cos(0.1*t)]';
+    M = ROT.om2EP(u);
+    var = M*w(t);
+end
+
+function var = fF3(t, u)
+    global ROT
+    m = 1.;
+    R = 1.;
+    Ib = [4*m*R^2/3 + m*R^2/4 0 0; 0 4*m*R^2/3 + m*R^2/4 0; 0 0 m*R^2/2];
+    
+    Lc = [0,0,0]';
+    var = [ROT.om2MRP(u(1:3))*u(4:6); -cross2mat(u(4:6))*Ib*u(4:6) + Lc];
+end

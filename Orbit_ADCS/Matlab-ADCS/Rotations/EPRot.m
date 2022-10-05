@@ -9,6 +9,7 @@ function var = EPRot
     var.SumEP    = @SumEP;
     var.EP2om    = @EP2om;
     var.om2EP    = @om2EP;
+    var.EPdiff   = @EPdiff;
 end
 
 function var = EP2dcm(q)
@@ -110,16 +111,19 @@ function var = om2EP(q)
             -q(3)  q(2)  q(1)]./2;        %  q(4) -q(3)  q(2)  q(1)]
 end
 
-% function var = EPdiff(nn::Int64, tmax, u0, f::Function, sch::Function)
-%     h  = tmax/(nn-1)
-%     th::LinRange{Float64, Int64} = LinRange(0, tmax, nn)
-%     u::Matrix{Float64}  = zeros(nn, length(u0))
-%     u(1,:] = u0
+function [tout, uout] = EPdiff(f,t,u0,optiondop)
+    global Dose
+    Dose = @Condition;
+    switch nargin
+    case 4
+        [tout, uout] = dop853(f,t,u0,optiondop);
+    case 3
+        [tout, uout] = dop853(f,t,u0);
+    end
 
-%     for n::Int64 = 1:(nn-1)
-%         u[n+1,:] = sch(h, u[n,:], th[n], f)
-%         % (1:3 to use the equations with omega rates)
-%         u[n+1,1:4) = f(u[n+1,1:4)) 
-%     end
-%     var = th, u
-% end
+    function y = Condition(y)
+        if norm(y(1:4)) ~= 1.
+            y(1:4) = normalize(y(1:4), 'norm');
+        end
+    end
+end

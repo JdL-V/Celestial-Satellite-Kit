@@ -25,6 +25,7 @@ function var = RotModule
     var.SumEP     = @EP.SumEP;
     var.EP2om     = @EP.EP2om;
     var.om2EP     = @EP.om2EP;
+    var.EPdiff    = @EP.EPdiff;
   
     var.CRP2dcm   = @CRP.CRP2dcm;
     var.dcm2CRP   = @CRP.dcm2CRP;
@@ -43,6 +44,7 @@ function var = RotModule
     var.SumMRP    = @MRP.SumMRP;
     var.MRP2om    = @MRP.MRP2om;
     var.om2MRP    = @MRP.om2MRP;
+    var.MRPdiff   = @MRP.MRPdiff;
 
     var.DCMmul    = @DCM.DCMmul;
     var.DCMtrs    = @DCM.DCMtrs;

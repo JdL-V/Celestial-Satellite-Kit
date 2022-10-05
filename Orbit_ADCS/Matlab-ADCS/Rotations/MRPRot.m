@@ -11,6 +11,7 @@ function var = MRPRot
     var.SumMRP    = @SumMRP;
     var.MRP2om    = @MRP2om;
     var.om2MRP    = @om2MRP;
+    var.MRPdiff   = @MRPdiff;
 end
 
 function var = MRP2dcm(qmr)
@@ -112,3 +113,20 @@ end
 %     end
 %     var = th, u
 % end
+
+function [tout, uout] = MRPdiff(f,t,u0,optiondop)
+    global Dose
+    Dose = @Condition;
+    switch nargin
+    case 4
+        [tout, uout] = dop853(f,t,u0,optiondop);
+    case 3
+        [tout, uout] = dop853(f,t,u0);
+    end
+
+    function y = Condition(y)
+        if dot(y(1:3), y(1:3)) > 1
+            y(1:3) = -y(1:3)./dot(y(1:3),y(1:3));
+        end
+    end
+end

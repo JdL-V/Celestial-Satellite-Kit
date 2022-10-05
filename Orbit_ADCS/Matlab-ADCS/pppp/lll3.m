@@ -36,15 +36,15 @@ r2 = 0.;
 G = astroConstants(1);
 m1 = 1.989e30;
 m2 = 1.898e27;
-T = 2*pi*sqrt(r1^3/(G*m2));
+T = 2*pi*sqrt(r1^3/(G*m1));
 om = 2*pi/T;
 
 L123x = @(x) G*m1*(x - r1)/abs(x - r1)^3 + G*m2*(x + r2)/abs(x + r2)^3 - om^2*x;
 L4y = (abs(r1) + abs(r2))*sind(60)
-L4x = (r1 + r2)/2
+L4x = (abs(r1) + abs(r2))*cosd(60)
 
-L2 = newton(-1e2, L123x, 1000, 1e2, 1e-8)
+L2 = newton(-1e6, L123x, 1000, 1e-14, 1e-4)
 
-L1 = newton(1e2, L123x, 1000, 1e-8, 1e-8)
+L1 = newton(1e6, L123x, 1000, 1e-14, 1e-4)
 
-L3 = newton(r1*1.01, L123x, 1000, 1e-16, 1e-4)
+L3 = newton(r1*1.01, L123x, 1000, 1e-14, 1e-4)
