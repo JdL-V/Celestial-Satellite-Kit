@@ -92,16 +92,3 @@ function var = checkVec(Vec, Dim)
         error('Vector dimesion not %d', Dim)
     end
 end
-
-% function dcmmul(dcm2, dcm1)
-%     if dcm1.outFrame != dcm2.inFrame
-%         error("dcms are not frame-compatible")
-%     end
-%     dcm = DCM(dcm2.Mat*dcm1.Mat, dcm2.outFrame, dcm1.inFrame)
-%     return dcm
-% end
-
-% function dcmtrs(dcm::DCM)
-%     dcmout = DCM(trs(dcm.Mat), dcm.inFrame, dcm.outFrame)
-%     return dcmout
-% end

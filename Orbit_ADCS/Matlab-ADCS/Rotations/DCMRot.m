@@ -2,8 +2,8 @@ function var = DCMRot
     global TP 
     TP = types;
 
-    var.DCMmul    = @DCMmul;
-    var.DCMtrs    = @DCMtrs
+    var.DCMmul = @DCMmul;
+    var.DCMtrs = @DCMtrs;
 end
 
 function var = DCMmul(dcm2, dcm1)
