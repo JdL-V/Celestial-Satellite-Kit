@@ -119,7 +119,7 @@ end
 %     for n::Int64 = 1:(nn-1)
 %         u[n+1,:] = sch(h, u[n,:], th[n], f)
 %         % (1:3 to use the equations with omega rates)
-%         u[n+1,1:4) = normalize(u[n+1,1:4)) 
+%         u[n+1,1:4) = f(u[n+1,1:4)) 
 %     end
 %     var = th, u
 % end

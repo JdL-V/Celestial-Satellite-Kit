@@ -50,3 +50,24 @@ MRP.CRP2MRP(crp)
 MRP.SumMRP(mrp,mrp)
 MRP.MRP2om(mrp.x)
 MRP.om2MRP(mrp.x)
+
+v1b = [0.8273, 0.5541, -0.0920]'
+v2b = [-0.8285, 0.5522, -0.0955]'
+v1n = [-0.1517, -0.9669, 0.2050]'
+v2n = [-0.8393, 0.4494, -0.3044]'
+
+tic
+t1 = TRIAD(v1b, v2b, v1n, v2n)
+toc
+
+tic
+% t2 = qMethod([v1b v2b], [v1n v2n],[1., 1.])
+toc
+
+tic
+t3 = QUEST([v1b v2b], [v1n v2n],[1., 1.])
+toc
+
+tic
+t4 = OLAE([v1b v2b], [v1n v2n],[1., 1.])
+toc

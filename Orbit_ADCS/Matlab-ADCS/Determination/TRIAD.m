@@ -8,7 +8,7 @@ end
 function var = triadbasegen(v1, v2)
     t = zeros(3,3);
     t(:,1) = v1;
-    t(:,2) = normalize(cross(v1, v2));
+    t(:,2) = normalize(cross(v1, v2), 'norm');
     t(:,3) = cross(t(:,1), t(:,2));
     var = t;
 end

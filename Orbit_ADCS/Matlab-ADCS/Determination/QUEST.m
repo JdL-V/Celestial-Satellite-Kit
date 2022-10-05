@@ -1,7 +1,7 @@
 function var = QUEST(vkb, vkn, weight)
     TP = types;
     CRP = CRPRot;
-    B = zeros(3,3)
+    B = zeros(3,3);
     for i = 1:size(vkb, 2)
         B = B + weight(i)*vkb(:,i)*vkn(:,i)';
     end
@@ -15,9 +15,9 @@ function var = QUEST(vkb, vkn, weight)
     K = [sig Z'
          Z   S-sig.*eye(3,3)];
     
-    f(s) = det(K - s(1).*eye(4,4));
+    f = @(s) det(K - s(1).*eye(4,4));
     lambda0 = sum(weight);
-    lambdaopt = newton(lambda0, f);
+    lambda_opt = newton(lambda0, f, 1000, 1e-14, 1e-8);
 
     qcr = TP.CRP(inv((lambda_opt + sig)*eye(3,3) - S)*Z, "B", "N");
     

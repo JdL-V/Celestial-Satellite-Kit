@@ -63,7 +63,7 @@ end
 function var = MRP2PRV(qmr)
     global TP 
     T = atan(qmr.x);
-    e = normalize(T);
+    e = normalize(T, 'norm');
     prv = TP.PRV(4*T(1)/e(1), e, qmr.outFrame, qmr.inFrame);
     var = prv;
 end
