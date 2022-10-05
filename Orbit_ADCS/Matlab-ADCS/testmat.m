@@ -25,7 +25,7 @@ ROT.PRV2om(prv);
 ROT.om2PRV(prv);
 
 ROT.EP2dcm(ep);
-ROT.dcm2EP(dcm, 0);
+ROT.dcm2EP(dcm);
 ROT.EP2PRV(ep);
 ROT.PRV2EP(prv);
 ROT.SumEP(ep,ep);
@@ -56,48 +56,48 @@ v1n = [-0.1517, -0.9669, 0.2050]';
 v2n = [-0.8393, 0.4494, -0.3044]';
 
 tic
-t1 = TRIAD(v1b, v2b, v1n, v2n).Mat;
+    t1 = TRIAD(v1b, v2b, v1n, v2n).Mat;
 toc
 
 tic
-t2 = qMethod([v1b v2b], [v1n v2n],[1., 1.]).Mat;
+    t2 = qMethod([v1b v2b], [v1n v2n],[1., 1.]).Mat;
 toc
 
 tic
-t3 = QUEST([v1b v2b], [v1n v2n],[1., 1.]).Mat;
+    t3 = QUEST([v1b v2b], [v1n v2n],[1., 1.]).Mat;
 toc
 
 tic
-t4 = OLAE([v1b v2b], [v1n v2n],[1., 1.]).Mat;
+    t4 = OLAE([v1b v2b], [v1n v2n],[1., 1.]).Mat;
 toc
 
 optiondop = rdpset('RelTol',1e-7,'AbsTol',1e-7,'Refine',10);
 
-[tout, uout] = ROT.EPdiff(@fq2,linspace(0,60,1e3),[1 0 0 0],optiondop);
-% a = [];
-% for nnn = 1:size(uout,1)
-%     a = [a norm(uout(nnn,:)) - 1];
-% end
-% max(abs(a))
-plot(tout,uout)
+tic
+    [tout, uout] = ROT.EPdiff(@EP_testDF,linspace(0,60,1e3),[1 0 0 0],optiondop);
+    figure; plot(tout,uout)
+toc
 
-Om0 = 0.5;
-u0 = [0., 0., 0., 3/5*Om0, 0., 4/5*Om0];
+tic
+    Om0 = 0.5;
+    u0 = [0., 0., 0., 3/5*Om0, 0., 4/5*Om0];
+    [tout, uout] = ROT.MRPdiff(@MRP_testDF,linspace(0,60,1e3),u0,optiondop);
+    figure; plot(tout,uout(:,1:3))
+    figure; plot(tout,uout(:,4:6))
+toc
 
-[tout, uout] = ROT.MRPdiff(@fF3,linspace(0,60,1e3),u0,optiondop);
-figure
-plot(tout,uout(:,1:3))
-figure
-plot(tout,uout(:,4:6))
 
-function var = fq2(t, u)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function var = EP_testDF(t, u)
     global ROT
     w = @(t) deg2rad(50).*[sin(0.1*t), 0.01, cos(0.1*t)]';
     M = ROT.om2EP(u);
     var = M*w(t);
 end
 
-function var = fF3(t, u)
+function var = MRP_testDF(t, u)
     global ROT
     m = 1.;
     R = 1.;

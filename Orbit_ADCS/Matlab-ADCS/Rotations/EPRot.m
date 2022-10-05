@@ -49,6 +49,9 @@ end
 
 function var = dcm2EP(dcm, eta)
     global TP
+    if nargin == 1
+        eta = 0
+    end
     trace = dcm.Mat(1,1) + dcm.Mat(2,2) + dcm.Mat(3,3);
     check = [trace,
              2*dcm.Mat(1,1) - trace,

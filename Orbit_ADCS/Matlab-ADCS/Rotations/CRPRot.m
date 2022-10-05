@@ -27,7 +27,7 @@ function var = dcm2CRP(dcm)
     % var = [dcm[2,3] - dcm[3,2]
     %         dcm[3,1] - dcm[1,3] 
     %         dcm[1,2] - dcm[2,1]]./ζ^2
-    var = EP2CRP(EP.dcm2EP(dcm, 0));
+    var = EP2CRP(EP.dcm2EP(dcm));
 end
 
 function var = CRP2EP(qcr)

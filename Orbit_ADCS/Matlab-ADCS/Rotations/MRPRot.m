@@ -29,7 +29,7 @@ function var = dcm2MRP(dcm)
     % var = [dcm[2,3] - dcm[3,2]
     %         dcm[3,1] - dcm[1,3] 
     %         dcm[1,2] - dcm[2,1]]./(ζ*(ζ + 2))
-    var = EP2MRP(EP.dcm2EP(dcm, 0));
+    var = EP2MRP(EP.dcm2EP(dcm));
 end
 
 function var = MRP2EP(qmr)
