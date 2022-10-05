@@ -4,7 +4,7 @@ function var = newton(u1, F, max_iter, eps_N, eps_jac)
         p = p + 1;
         u1 = u1 - Jc(F, u1, eps_jac)\F(u1);
     end
-    fprintf("Newton iterations: %d", p)
+    fprintf("Newton iterations: %d\n", p)
     var = u1;
 end
 

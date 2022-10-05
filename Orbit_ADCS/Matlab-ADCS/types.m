@@ -16,6 +16,8 @@ function var = DCM(Mat, outFrame, inFrame)
 end
 
 function var = EulerAng(Angles, Sequence, outFrame, inFrame)
+    checkVec(Angles, 3)
+    checkVec(Sequence, 3)
     checkFrames(inFrame, outFrame)
     var = struct('Angles',   {Angles},   ...
                  'Sequence', {Sequence}, ...
@@ -84,18 +86,16 @@ end
 
 
 % mutable struct FMatrix
-%     Mat::Matrix{Float64}
-%     Frame::String
+%     Mat
+%     Frame
 % end
 
 % mutable struct FVector
-%     Vec::Vector{Float64}
-%     Frame::String
+%     Vec
+%     Frame
 % end
 
-% include("Tools/MathTools.jl")
-
-% function dcmmul(dcm2::DCM, dcm1::DCM)
+% function dcmmul(dcm2, dcm1)
 %     if dcm1.outFrame != dcm2.inFrame
 %         error("dcms are not frame-compatible")
 %     end

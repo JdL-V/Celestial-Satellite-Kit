@@ -10,7 +10,7 @@ function var = qMethod(vkb, vkn, weight)
     sig = trace(B);
     Z = [B(2,3) - B(3,2)
          B(3,1) - B(1,3)
-         B(1,2) - B(2,1)]
+         B(1,2) - B(2,1)];
 
     K = [sig Z'
          Z   S-sig.*eye(3,3)];
