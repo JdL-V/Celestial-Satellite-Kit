@@ -59,6 +59,16 @@ function var = MRP(Vector, outFrame, inFrame)
                  'inFrame',  {inFrame});
 end
 
+function var = FMatrix(Matrix, Frame)
+    var = struct('Mat',      {Matrix},   ...
+                 'Frame',    {Frame});
+end
+
+function var = FVector(Vector, Frame)
+    var = struct('x',        {Vector},   ...
+                 'Frame',    {Frame});
+end
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function var = checkFrames(inFrame, outFrame)
@@ -82,18 +92,6 @@ function var = checkVec(Vec, Dim)
         error('Vector dimesion not %d', Dim)
     end
 end
-
-
-
-% mutable struct FMatrix
-%     Mat
-%     Frame
-% end
-
-% mutable struct FVector
-%     Vec
-%     Frame
-% end
 
 % function dcmmul(dcm2, dcm1)
 %     if dcm1.outFrame != dcm2.inFrame
