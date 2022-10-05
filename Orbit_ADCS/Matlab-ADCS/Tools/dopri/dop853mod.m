@@ -1,4 +1,4 @@
-function [varargout] = dop853(OdeFcn,tspan,y0,options,varargin)
+function [varargout] = dop853mod(OdeFcn,tspan,y0,options,varargin)
 %
 %     Numerical solution of a non-stiff system of first order ordinary
 %     differential equations:
@@ -359,7 +359,10 @@ return
 % ------------------------------------------------------------------------
 % ------------------------------------------------------------------------
 function [varargout] = dop853solver(OdeFcn,tspan,y,Op,varargin)
-
+try
+    global Dose
+catch
+end
 Solver_Name = 'dop853solver';
 
 % ------- INPUT PARAMETERS
@@ -1034,6 +1037,10 @@ while ~Done
                     end
                     tout(nout)   = t;
                     yout(nout,:) = y';
+                    try
+                        yout(nout,:) = Dose(yout(nout,:));
+                    catch
+                    end
                 case 2          % Computed points, with refinement
                     nout         = nout + 1;
                     tout(nout)   = t;
@@ -1050,6 +1057,11 @@ while ~Done
                     yinterp      = ntrprad(tinterp,t,h,cont);
                     tout(ii)     = tinterp;
                     yout(ii,:)   = yinterp;
+                    try
+                        yout(ii,:) = Dose(yout(ii,:))
+                        yout(nout,:) = Dose(yout(nout,:))
+                    catch
+                    end
                 case 3          % Output only at tspan points
                     while ( PosNeg > 0 && t<= tspan(nout+1) && tspan(nout+1) < tph || ...
                             PosNeg < 0 && t>= tspan(nout+1) && tspan(nout+1) > tph)
@@ -1057,6 +1069,10 @@ while ~Done
                         yinterp      = ntrprad(tspan(nout),t,h,cont);
                         tout(nout)   = tspan(nout);
                         yout(nout,:) = yinterp';  % Column output
+                        try
+                            yout(nout,:) = Dose(yout(nout,:));
+                        catch
+                        end
                     end
             end
         end
@@ -1124,6 +1140,10 @@ if OutputNbr > 0
     yout(nout,:) = y';
     tout         = tout(1:nout);
     yout         = yout(1:nout,:);
+    try
+        yout(nout,:) = Dose(yout(nout,:));
+    catch
+    end
     varargout = {tout,yout};
     if EventsExist
         varargout = [varargout,{teout,yeout,ieout}];
