@@ -61,7 +61,7 @@ t1 = TRIAD(v1b, v2b, v1n, v2n)
 toc
 
 tic
-% t2 = qMethod([v1b v2b], [v1n v2n],[1., 1.])
+t2 = qMethod([v1b v2b], [v1n v2n],[1., 1.])
 toc
 
 tic

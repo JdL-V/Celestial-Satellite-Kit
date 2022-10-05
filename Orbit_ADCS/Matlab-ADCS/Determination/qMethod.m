@@ -3,7 +3,7 @@ function var = qMethod(vkb, vkn, weight)
     EP = EPRot;
     B = zeros(3,3);
     for i = 1:size(vkb, 2)
-        B = B + weight(i)*vkb(:,i)*vkn(:,i)'
+        B = B + weight(i)*vkb(:,i)*vkn(:,i)';
     end
 
     S = B + B';
@@ -15,9 +15,10 @@ function var = qMethod(vkb, vkn, weight)
     K = [sig Z'
          Z   S-sig.*eye(3,3)];
     
-    lambda = eigvals(K);
-    max_lambda = findfirst(real(lambda) == maximum(real(lambda)));
-    q = TP.quaternion(real(eigvecs(K)(:,max_lambda)), "B", "N");
+    [eigvecs, eigvals] = eig(K);
+    eigvals = diag(eigvals);
+    max_eigvals = find(real(eigvals) == max(real(eigvals)));
+    q = TP.quaternion(real(eigvecs(:,max_eigvals)), "B", "N");
     
     var = EP.EP2dcm(q);
 end
