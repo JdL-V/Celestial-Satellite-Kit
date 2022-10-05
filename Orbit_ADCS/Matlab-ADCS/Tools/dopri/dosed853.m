@@ -1,4 +1,4 @@
-function [varargout] = dop853mod(OdeFcn,tspan,y0,options,varargin)
+function [varargout] = dosed853(OdeFcn,tspan,y0,options,varargin)
 %
 %     Numerical solution of a non-stiff system of first order ordinary
 %     differential equations:

@@ -119,9 +119,9 @@ function [tout, uout] = EPdiff(f,t,u0,optiondop)
     Dose = @Condition;
     switch nargin
     case 4
-        [tout, uout] = dop853mod(f,t,u0,optiondop);
+        [tout, uout] = dosed853(f,t,u0,optiondop);
     case 3
-        [tout, uout] = dop853mod(f,t,u0);
+        [tout, uout] = dosed853(f,t,u0);
     end
 
     function y = Condition(y)
