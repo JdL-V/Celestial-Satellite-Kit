@@ -50,7 +50,7 @@ end
 function var = dcm2EP(dcm, eta)
     global TP
     if nargin == 1
-        eta = 0
+        eta = 0;
     end
     trace = dcm.Mat(1,1) + dcm.Mat(2,2) + dcm.Mat(3,3);
     check = [trace,
@@ -95,7 +95,7 @@ function var = SumEP(q1, q2)
     q = TP.quaternion([q2.x(1) -q2.x(2) -q2.x(3) -q2.x(4);
                     q2.x(2)  q2.x(1)  q2.x(4) -q2.x(3);
                     q2.x(3) -q2.x(4)  q2.x(1)  q2.x(2);
-                    q2.x(4)  q2.x(3) -q2.x(2)  q2.x(1)]*(q1.x)',...
+                    q2.x(4)  q2.x(3) -q2.x(2)  q2.x(1)]*(q1.x),...
                     q2.outFrame, q1.inFrame);
     var = q;
 end

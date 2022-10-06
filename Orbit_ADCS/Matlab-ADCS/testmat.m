@@ -74,16 +74,16 @@ toc
 optiondop = rdpset('RelTol',1e-7,'AbsTol',1e-7,'Refine',10);
 
 tic
-    [tout, uout] = ROT.EPdiff(@EP_testDF,linspace(0,60,1e3),[1 0 0 0],optiondop);
-    figure; plot(tout,uout)
+    [tout, uout] = ROT.EPdiff(@EP_testDF,linspace(0,60,1e2),[1 0 0 0],optiondop);
+    % figure; plot(tout,uout)
 toc
 
 tic
     Om0 = 0.5;
     u0 = [0., 0., 0., 3/5*Om0, 0., 4/5*Om0];
     [tout, uout] = ROT.MRPdiff(@MRP_testDF,linspace(0,60,1e3),u0,optiondop);
-    figure; plot(tout,uout(:,1:3))
-    figure; plot(tout,uout(:,4:6))
+    % figure; plot(tout,uout(:,1:3))
+    % figure; plot(tout,uout(:,4:6))
 toc
 
 
