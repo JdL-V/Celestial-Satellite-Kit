@@ -1,4 +1,4 @@
-addpath(genpath(fileparts(which(mfilename))));
+addpath(genpath(fileparts(fileparts(which(mfilename)))));
 clc
 clear
 close all
