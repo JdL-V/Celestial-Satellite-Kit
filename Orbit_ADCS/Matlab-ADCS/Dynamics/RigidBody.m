@@ -14,13 +14,13 @@ function var = rotateInertiaFrame(Io, dcm)
     var = dcm*Io*dcm';
 end
 
-% function var = getPrincipalInertia(Io)
-%     dcm = eigvecs(Io)';
-%     Lam, dcm = eigenSort(eigvals(Io), dcm);
-%     % Right handed coordinate frame check
-%     dcm(3,:) = cross(dcm(1,:), dcm(2,:));
-%     var = diagm(Lam), dcm;
-% end
+function var = getPrincipalInertia(Io)
+    [dcm, Lam] = eig(Io)';
+    [Lam, dcm] = eigenSort(Lam, dcm);
+    % Right handed coordinate frame check
+    dcm(3,:) = cross(dcm(1,:), dcm(2,:));
+    var = diagm(Lam), dcm;
+end
 
 function var = getRotKineticE(Io, om)
     om = om(:);
