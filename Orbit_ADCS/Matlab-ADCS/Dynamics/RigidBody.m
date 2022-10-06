@@ -1,7 +1,7 @@
 function var = getInertiaTensor(M, R)
-    Io = zeros(3,3)
+    Io = zeros(3,3);
     for j = 1:length(M)
-        Io = Io - M(j).*cross2mat(R(:,j))^2
+        Io = Io - M(j).*cross2mat(R(:,j))^2;
     end
     var = I;
 end
