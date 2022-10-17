@@ -28,9 +28,9 @@ end
 
 function var = dcm2PRV(dcm)
     global TP 
-    prv = TP.PRV(0., [0.,0.,0.], dcm.outFrame, dcm.inFrame);
-    prv.Angle = acos(0.5*(dcm.Mat(1,1) + dcm.Mat(2,2) + dcm.Mat(3,3) - 1));
-    prv.x = 1/(2*sin(prv.Angle)).*[dcm.Mat(2,3)-dcm.Mat(3,2), dcm.Mat(3,1)-dcm.Mat(1,3), dcm.Mat(1,2)-dcm.Mat(2,1)];
+    Angle = acos(0.5*(dcm.Mat(1,1) + dcm.Mat(2,2) + dcm.Mat(3,3) - 1));
+    x = 1/(2*sin(Angle)).*[dcm.Mat(2,3)-dcm.Mat(3,2), dcm.Mat(3,1)-dcm.Mat(1,3), dcm.Mat(1,2)-dcm.Mat(2,1)];
+    prv = TP.PRV(Angle, x, dcm.outFrame, dcm.inFrame);
     var = prv;
 end
 

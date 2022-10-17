@@ -93,25 +93,25 @@ end
 function var = SumEP(q1, q2)
     global TP 
     q = TP.quaternion([q2.x(1) -q2.x(2) -q2.x(3) -q2.x(4);
-                    q2.x(2)  q2.x(1)  q2.x(4) -q2.x(3);
-                    q2.x(3) -q2.x(4)  q2.x(1)  q2.x(2);
-                    q2.x(4)  q2.x(3) -q2.x(2)  q2.x(1)]*(q1.x),...
-                    q2.outFrame, q1.inFrame);
+                       q2.x(2)  q2.x(1)  q2.x(4) -q2.x(3);
+                       q2.x(3) -q2.x(4)  q2.x(1)  q2.x(2);
+                       q2.x(4)  q2.x(3) -q2.x(2)  q2.x(1)]*(q1.x),...
+                       q2.outFrame, q1.inFrame);
     var = q;
 end
 
 function var = EP2om(q)
     var = inv([q(1) -q(2) -q(3) -q(4)
-                q(2)  q(1) -q(4)  q(3)
-                q(3)  q(4)  q(1) -q(2)
-                q(4) -q(3)  q(2)  q(1)]./2);
+               q(2)  q(1) -q(4)  q(3)
+               q(3)  q(4)  q(1) -q(2)
+               q(4) -q(3)  q(2)  q(1)]./2);
 end
 
 function var = om2EP(q)
     var = [-q(2) -q(3) -q(4)             % [q(1) -q(2) -q(3) -q(4)
-             q(1) -q(4)  q(3)             %  q(2)  q(1) -q(4)  q(3)
-             q(4)  q(1) -q(2)             %  q(3)  q(4)  q(1) -q(2)
-            -q(3)  q(2)  q(1)]./2;        %  q(4) -q(3)  q(2)  q(1)]
+            q(1) -q(4)  q(3)             %  q(2)  q(1) -q(4)  q(3)
+            q(4)  q(1) -q(2)             %  q(3)  q(4)  q(1) -q(2)
+           -q(3)  q(2)  q(1)]./2;        %  q(4) -q(3)  q(2)  q(1)]
 end
 
 function [tout, uout] = EPdiff(f,t,u0,optiondop)
