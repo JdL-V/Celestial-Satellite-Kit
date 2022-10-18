@@ -6,7 +6,7 @@ function var = OLAE(vkb, vkn, weight)
     N = length(d);
     S = zeros(N,3);
     for i = 1:(N/3)
-        S(i:i+2,:) = cross2mat(vkb(:,i) + vkn(:,i));
+        S(i:i+2,:) = skewsym(vkb(:,i) + vkn(:,i));
     end
     W = eye(N,N);
     qcr = TP.CRP(inv(S'*W*S)*S'*W*d, "B", "N");

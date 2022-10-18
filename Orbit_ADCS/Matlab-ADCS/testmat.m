@@ -104,5 +104,5 @@ function var = MRP_testDF(t, u)
     Ib = [4*m*R^2/3 + m*R^2/4 0 0; 0 4*m*R^2/3 + m*R^2/4 0; 0 0 m*R^2/2];
     
     Lc = [0,0,0]';
-    var = [ROT.om2MRP(u(1:3))*u(4:6); -cross2mat(u(4:6))*Ib*u(4:6) + Lc];
+    var = [ROT.om2MRP(u(1:3))*u(4:6); -skewsym(u(4:6))*Ib*u(4:6) + Lc];
 end

@@ -18,7 +18,7 @@ function var = CRP2dcm(qcr)
                 2*(qcr.x(1)*qcr.x(3) + qcr.x(2))            2*(qcr.x(2)*qcr.x(3) - qcr.x(1))            1 - qcr.x(1)^2 - qcr.x(2)^2 + qcr.x(3)^2]./(1 + dot(qcr.x,qcr.x)), ...
             qcr.outFrame, qcr.inFrame);
     var = dcm;
-    % var = ((1 - dot(qcr,qcr))*Matrix(I, 3, 3) + 2*qcr*qcr' - 2*cross2mat(qcr))./(1 + dot(qcr,qcr))
+    % var = ((1 - dot(qcr,qcr))*Matrix(I, 3, 3) + 2*qcr*qcr' - 2*skewsym(qcr))./(1 + dot(qcr,qcr))
 end
 
 function var = dcm2CRP(dcm)
@@ -65,12 +65,12 @@ function var = SumCRP(qcr1, qcr2)
 end
 
 function var = CRP2om(qcr)
-    var = 2/(1 + dot(qcr, qcr)).*(eye(3,3) - cross2mat(qcr));
+    var = 2/(1 + dot(qcr, qcr)).*(eye(3,3) - skewsym(qcr));
 end
 
 function var = om2CRP(qcr)
     var = [1 + qcr(1)^2            qcr(1)*qcr(2) - qcr(3)  qcr(1)*qcr(3) + qcr(2)
             qcr(2)*qcr(1) + qcr(3)  1 + qcr(2)^2            qcr(2)*qcr(3) - qcr(1)
             qcr(3)*qcr(1) - qcr(2)  qcr(3)*qcr(2) + qcr(1)  1 + qcr(3)^2          ].*0.5;
-    % var = 0.5.*(Matrix(I, 3, 3) + cross2mat(qcr) + qcr*qcr')
+    % var = 0.5.*(Matrix(I, 3, 3) + skewsym(qcr) + qcr*qcr')
 end

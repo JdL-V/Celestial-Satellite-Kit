@@ -1,8 +1,12 @@
-function var = newton(u1, F, max_iter, eps_N, eps_jac)
+function var = eznewton(u1, F, max_iter)
     p = 0;
-    while norm(F(u1)) > eps_N && p < max_iter
+    if nargin == 2
+        max_iter = 100;
+    end
+
+    while norm(F(u1)) > 1e-14 && p < max_iter
         p = p + 1;
-        u1 = u1 - Jc(F, u1, eps_jac)\F(u1);
+        u1 = u1 - Jc(F, u1, eps(u1)*1e8)\F(u1);
     end
     fprintf("Newton iterations: %d\n", p)
     var = u1;

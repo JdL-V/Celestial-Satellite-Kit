@@ -35,11 +35,11 @@ function var = dcm2PRV(dcm)
 end
 
 function var = PRV2om(prv)
-    tau = cross2mat(prv.x*prv.Angle);
+    tau = skewsym(prv.x*prv.Angle);
     var = (eye(3,3) + 0.5.*tau + 1/prv.Angle^2*(1 - prv.Angle/2*cot(prv.Angle/2)).*tau^2);
 end
 
 function var = om2PRV(prv)
-    tau = cross2mat(prv.x.*prv.Angle);
+    tau = skewsym(prv.x.*prv.Angle);
     var = (eye(3,3) - ((1 - cos(prv.Angle))/prv.Angle^2).*tau + ((prv.Angle - sin(prv.Angle))/prv.Angle^3).*tau^2);
 end

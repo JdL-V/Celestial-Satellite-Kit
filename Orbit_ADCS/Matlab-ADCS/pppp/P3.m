@@ -48,3 +48,9 @@ L2 = newton(-1e6, L123x, 1000, 1e-14, 1e-4)
 L1 = newton(1e6, L123x, 1000, 1e-14, 1e-4)
 
 L3 = newton(r1*1.01, L123x, 1000, 1e-14, 1e-4)
+
+L2 = eznewton(-1e6, L123x)
+
+L1 = eznewton(1e6, L123x)
+
+L3 = eznewton(r1*1.01, L123x)
