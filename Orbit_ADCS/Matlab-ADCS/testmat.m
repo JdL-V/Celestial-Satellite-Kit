@@ -86,7 +86,14 @@ tic
     % figure; plot(tout,uout(:,4:6))
 toc
 
-
+xs = 1:100;
+ys = rand(size(xs));
+xout = 1:0.1:100;
+yout = LGinterp(xs, ys, xout, 4);
+% figure
+% plot(xs, ys, '.')
+% hold on
+% plot(xout, yout)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
