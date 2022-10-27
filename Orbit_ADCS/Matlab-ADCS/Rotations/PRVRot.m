@@ -19,7 +19,7 @@ function var = PRV2dcm(prv)
             if i == j
                 dcm.Mat(i,j) = dcm.Mat(i,j) + cos(prv.Angle);
             else
-                % dcm.Mat(i,j) = dcm.Mat(i,j) + (-1)^(i + j + (i < j))*sin(prv.Angle)*prv.x(((1 2 3)*prod.(eachcol((1 2 3).!=(i; j))))(1));
+                dcm.Mat(i,j) = dcm.Mat(i,j) + (-1)^(i + j + (i < j))*sin(prv.Angle)*prv.x([1 2 3]*prod([1 2 3]' ~= [i j], 2));
             end
         end
     end
