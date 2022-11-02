@@ -4,6 +4,7 @@ function var = EPRot
 
     var.EP2dcm   = @EP2dcm;
     var.dcm2EP   = @dcm2EP;
+    var.sheppard = @sheppard;
     var.EP2PRV   = @EP2PRV;
     var.PRV2EP   = @PRV2EP;
     var.SumEP    = @SumEP;
@@ -21,44 +22,46 @@ function var = EP2dcm(q)
     var = dcm;
 end
 
-% function var = sheppard(dcm)
-%     trace = dcm.Mat(1,1) + dcm.Mat(2,2) + dcm.Mat(3,3)
-%     q = quaternion( sqrt.([ 1 + trace
-%                             1 - trace + 2*dcm.Mat(1,1)
-%                             1 - trace + 2*dcm.Mat(2,2)
-%                             1 - trace + 2*dcm.Mat(3,3)]./4),
-%                     dcm.outFrame,
-%                     dcm.inFrame)
+function var = sheppard(dcm)
+    global TP 
+    Trace = dcm.Mat(1,1) + dcm.Mat(2,2) + dcm.Mat(3,3);
+    q = TP.quaternion(sqrt([1 + Trace
+                            1 - Trace + 2*dcm.Mat(1,1)
+                            1 - Trace + 2*dcm.Mat(2,2)
+                            1 - Trace + 2*dcm.Mat(3,3)]./4), ...
+                       dcm.outFrame, dcm.inFrame);
 
-%     index = (1 2 3 4)[findfirst(q.x .== maximum(q.x))]
-%     if index == 1
-%         for j = 1:3
-%             i = (1:3)(1:end .~= j]
-%             q.x[j+1)  = (dcm.Mat[i(1),i(2)] - dcm.Mat[i(2),i(1)])/(4*q.x[index])*(-1).^(j + 1)
-%         end
-%     else
-%         i = (1:3)(1:end .~= index-1)
-%         q.x(1) = (dcm.Mat[i(1),i(2)] - dcm.Mat[i(2),i(1)])/(4*q.x[index])*(-1).^index
-%         for j = (1:3)(1:end .~= index-1)
-%             q.x[j+1) = (dcm.Mat[index-1,j] + dcm.Mat[j,index-1))/(4*q.x[index])
-%         end
-%         q.x = (q.x).*sign(q.x(1))
-%     end
-%     var = q
-% end
+    index = [1 2 3 4];
+    index = index(min(find(q.x == max(q.x))));
+    vec = 1:3;
+    if index == 1
+        for j = vec
+            i = vec(1:end ~= j);
+            q.x(j+1)  = (dcm.Mat(i(1),i(2)) - dcm.Mat(i(2),i(1)))/(4*q.x(index))*(-1).^(j + 1);
+        end
+    else
+        i = vec(1:end ~= (index-1));
+        q.x(1) = (dcm.Mat(i(1),i(2)) - dcm.Mat(i(2),i(1)))/(4*q.x(index))*(-1).^index;
+        for j = vec(1:end ~= index-1)
+            q.x(j+1) = (dcm.Mat(index-1,j) + dcm.Mat(j,index-1))/(4*q.x(index));
+        end
+        q.x = (q.x).*sign(q.x(1));
+    end
+    var = q;
+end
 
 function var = dcm2EP(dcm, eta)
     global TP
     if nargin == 1
         eta = 0;
     end
-    trace = dcm.Mat(1,1) + dcm.Mat(2,2) + dcm.Mat(3,3);
-    check = [trace,
-             2*dcm.Mat(1,1) - trace,
-             2*dcm.Mat(2,2) - trace,
-             2*dcm.Mat(3,3) - trace];
+    Trace = dcm.Mat(1,1) + dcm.Mat(2,2) + dcm.Mat(3,3);
+    check = [Trace,
+             2*dcm.Mat(1,1) - Trace,
+             2*dcm.Mat(2,2) - Trace,
+             2*dcm.Mat(3,3) - Trace];
 
-    q = TP.quaternion(zeros(4), dcm.outFrame, dcm.inFrame);
+    q = TP.quaternion(zeros(4,1), dcm.outFrame, dcm.inFrame);
     for i = 1:4
         k0 = 1:3;
         k = k0(1:end ~= (i-1));

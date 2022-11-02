@@ -20,6 +20,7 @@ function var = RotModule
   
     var.EP2dcm    = @EP.EP2dcm;
     var.dcm2EP    = @EP.dcm2EP;
+    var.sheppard  = @EP.sheppard;
     var.EP2PRV    = @EP.EP2PRV;
     var.PRV2EP    = @EP.PRV2EP;
     var.SumEP     = @EP.SumEP;

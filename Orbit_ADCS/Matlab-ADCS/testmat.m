@@ -26,6 +26,7 @@ ROT.om2PRV(prv);
 
 ROT.EP2dcm(ep);
 ROT.dcm2EP(dcm);
+ROT.sheppard(dcm);
 ROT.EP2PRV(ep);
 ROT.PRV2EP(prv);
 ROT.SumEP(ep,ep);
@@ -70,7 +71,7 @@ toc
 tic
     t4 = OLAE([v1b v2b], [v1n v2n],[1., 1.]).Mat;
 toc
-
+warning off
 optiondop = rdpset('RelTol',1e-7,'AbsTol',1e-7,'Refine',10);
 
 tic
@@ -85,6 +86,7 @@ tic
     % figure; plot(tout,uout(:,1:3))
     % figure; plot(tout,uout(:,4:6))
 toc
+warning on
 
 xs = 1:100;
 ys = sin(xs);
