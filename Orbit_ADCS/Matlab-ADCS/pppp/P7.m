@@ -14,25 +14,30 @@ dcmBN.Mat
 dcmBN2.Mat
 dcmBN3 = qMethod([neB nsB], [neN nsN], [1.,1.]);
 dcmBN4 = QUEST([neB nsB], [neN nsN], [1.,1.]);
+dcmBN5 = OLAE([neB nsB], [neN nsN], [1.,1.]);
 dcmBN3.Mat
 dcmBN4.Mat
+dcmBN5.Mat
+
+dcmBN6 = TRIAD([0.8273, 0.5541, -0.0920], [-0.8285, 0.5522, -0.0955], [-0.1517, -0.9669, 0.2050], [-0.8393, 0.4494, -0.3044]);
+dcmBN6.Mat
+dcmBN7 = OLAE([[0.8273, 0.5541, -0.0920]', [-0.8285, 0.5522, -0.0955]'], [[-0.1517, -0.9669, 0.2050]', [-0.8393, 0.4494, -0.3044]'],  [1.,1.]);
+dcmBN7.Mat
 
 u01 = deg2rad([80, 30, 40]');
 optiondop = rdpset('RelTol',1e-7,'AbsTol',1e-7,'Refine',10);
+warning off
 tic
-    [tout1, uout1] = dop853(@feuler,linspace(0,60,1e3),u01,optiondop);
+    [tout1, uout1] = dop853(@feuler, linspace(0,60,1e3), u01, optiondop);
     figure; plot(tout1,uout1)
 toc
 
-dcmBN = TRIAD([0.8273, 0.5541, 0.0920], [-0.8285, 0.5522, -0.0955], [-0.1517, -0.9669, 0.2050], [-0.8393, 0.4494, -0.3044]);
-dcmBN.Mat
-
 u0 = [1, 0, 0, 0]';
 tic
-    [tout, uout] = ROT.EPdiff(@fq2,linspace(0,60,1e3),u0,optiondop);
+    [tout, uout] = ROT.EPdiff(@fq2, linspace(0,60,1e3), u0, optiondop);
     figure; plot(tout,uout)
 toc
-
+warning on
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -44,10 +49,6 @@ function du = feuler(t,u)
     M = ROT.om2euler(TP.EulerAng([u(1), u(2), u(3)], [3 2 1], 'A', 'B'));
     du = M*w(t);
 end
-% u0 = deg2rad.([80, 30, 40]);
-% tt, uu = ca(Int(1e5), 60., u0, feuler, rk4)
-% uu[end,:]
-
 
 function du = fq2(t,u)
     global ROT

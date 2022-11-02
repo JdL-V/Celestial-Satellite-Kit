@@ -87,9 +87,11 @@ tic
 toc
 
 xs = 1:100;
-ys = rand(size(xs));
+ys = sin(xs);
 xout = 1:0.1:100;
-yout = LGinterp(xs, ys, xout, 4);
+warning off
+yout = LGinterp(xs, ys, xout, 8);
+warning on
 % figure
 % plot(xs, ys, '.')
 % hold on
