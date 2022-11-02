@@ -1,6 +1,4 @@
 function var = RotModule
-    TP = types;
-
     EA  = EulerRot;
     PRV = PRVRot;
     EP  = EPRot;

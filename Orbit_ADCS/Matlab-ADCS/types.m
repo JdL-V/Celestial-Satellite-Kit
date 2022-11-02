@@ -88,7 +88,7 @@ function var = checkMat(Mat, Dim)
 end
 
 function var = checkVec(Vec, Dim)
-    if ~(length(Vec) == Dim)
+    if ~(length(Vec(:)) == Dim)
         error('Vector dimesion not %d', Dim)
     end
 end
