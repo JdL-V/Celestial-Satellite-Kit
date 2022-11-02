@@ -236,14 +236,6 @@ function var = dcm2euler(dcm, rot_seq)
     end
 end
 
-% This modified function computes atan with the result depending on the quadrant
-% y: Float
-% x: Float
-function var = atanMk2(y, x) 
-    var = wrapTo2Pi(atan((y)/(x)) + pi*(sign(x) == sign(y))*(sign(y) == -1) ...
-                                  - pi*(sign(x) ~= sign(y))*(sign(y) == -1));
-end
-
 % Computes acos(x)        if |x| <= 1
 % Computes acos(sign(x))  if |x| > 1
 function var = acosMk2(x)
