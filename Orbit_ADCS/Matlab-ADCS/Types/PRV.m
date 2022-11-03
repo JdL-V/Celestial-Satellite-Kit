@@ -1,0 +1,9 @@
+function var = PRV(Angle, Vector, outFrame, inFrame)
+    checkVec(Angle, 1)
+    checkVec(Vector, 3)
+    checkFrames(inFrame, outFrame)
+    var = struct('Angle',    {Angle},    ...
+                 'x',        {Vector(:)},   ...
+                 'outFrame', {outFrame}, ...
+                 'inFrame',  {inFrame});
+end

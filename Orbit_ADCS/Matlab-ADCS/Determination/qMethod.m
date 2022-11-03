@@ -1,6 +1,4 @@
 function var = qMethod(vkb, vkn, weight)
-    TP = types;
-    EP = EPRot;
     B = zeros(3,3);
     for i = 1:size(vkb, 2)
         B = B + weight(i)*vkb(:,i)*vkn(:,i)';
@@ -18,7 +16,7 @@ function var = qMethod(vkb, vkn, weight)
     [eigvecs, eigvals] = eig(K);
     eigvals = diag(eigvals);
     max_eigvals = find(real(eigvals) == max(real(eigvals)));
-    q = TP.quaternion(real(eigvecs(:,max_eigvals)), "B", "N");
+    q = quat(real(eigvecs(:,max_eigvals)), "B", "N");
     
-    var = EP.EP2dcm(q);
+    var = EP2dcm(q);
 end

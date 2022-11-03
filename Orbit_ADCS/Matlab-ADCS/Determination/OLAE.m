@@ -1,6 +1,4 @@
 function var = OLAE(vkb, vkn, weight)
-    TP = types;
-    CRP = CRPRot;
     d0 = vkb - vkn;
     d = reshape(d0,[numel(d0),1]);
     N = length(d);
@@ -17,7 +15,7 @@ function var = OLAE(vkb, vkn, weight)
         var = QUEST(vkb, vkn, weight);
         return
     end
-    qcr = TP.CRP(SWS\(S'*W*d), "B", "N");
+    qcr = CRP(SWS\(S'*W*d), "B", "N");
 
-    var = CRP.CRP2dcm(qcr);
+    var = CRP2dcm(qcr);
 end

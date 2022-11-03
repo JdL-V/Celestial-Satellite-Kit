@@ -1,8 +1,7 @@
 function var = TRIAD(v1b, v2b, v1n, v2n)
-    TP = types;
     bt = triadbasegen(v1b, v2b);
     nt = triadbasegen(v1n, v2n);
-    var = TP.DCM(bt*nt', "B", "N");
+    var = DCM(bt*nt', "B", "N");
 end
 
 function var = triadbasegen(v1, v2)
