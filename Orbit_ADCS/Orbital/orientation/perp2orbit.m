@@ -1,7 +1,7 @@
 function [Panel, BBx, BBy, BBz]  = perp2orbit(a_e, irr0, npoints, tspan, R, visibility, r, v, XYZ, th, w)
     r0 = r(1,:)';
     v0 = v(1,:)';
-    % vector x, normal a la órbita
+    % x vector normal to orbit
     Bx = (cross(r0',v0')/(norm(r0)*norm(v0)))'; 
     By = -r0/norm(r0);
     By = By/norm(By);
@@ -16,9 +16,9 @@ function [Panel, BBx, BBy, BBz]  = perp2orbit(a_e, irr0, npoints, tspan, R, visi
     % The loop is computed in order to solve for each timestep.
     for k = 1:npoints
         
-        sun_dir = (R(k,:)/norm(R(k,:)))'; % vector dirección solar.
+        sun_dir = (R(k,:)/norm(R(k,:)))'; % solar direction vector.
         
-        % matriz de giro con velocidad angular w (rad/s).
+        % rotation matrix with angular speed w (rad/s).
         A56 = [1, 0,                0;
                 0, cos(w*tspan(k)), -sin(w*tspan(k));
                 0, sin(w*tspan(k)),  cos(w*tspan(k))];
