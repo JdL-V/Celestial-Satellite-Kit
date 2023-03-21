@@ -35,6 +35,8 @@ CRP2dcm(crp);
 dcm2CRP(dcm);
 CRP2PRV(crp);
 PRV2CRP(prv);
+EP2CRP(ep);
+CRP2EP(crp);
 SumCRP(crp,crp);
 CRP2om(crp.x);
 om2CRP(crp.x);
@@ -45,6 +47,8 @@ MRP2PRV(mrp);
 PRV2MRP(prv);
 MRP2CRP(mrp);
 CRP2MRP(crp);
+EP2MRP(ep);
+MRP2EP(mrp);
 SumMRP(mrp,mrp);
 MRP2om(mrp.x);
 om2MRP(mrp.x);
@@ -69,6 +73,11 @@ toc
 tic
     t4 = OLAE([v1b v2b], [v1n v2n],[1., 1.]).Mat;
 toc
+
+tic
+    t5 = OLAE2([v1b v2b], [v1n v2n],[1., 1.]).Mat;
+toc
+
 warning off
 optiondop = rdpset('RelTol',1e-7,'AbsTol',1e-7,'Refine',10);
 
@@ -113,5 +122,5 @@ function var = MRP_testDF(t, u)
     Ib = [4*m*R^2/3 + m*R^2/4 0 0; 0 4*m*R^2/3 + m*R^2/4 0; 0 0 m*R^2/2];
     
     Lc = [0,0,0]';
-    var = [om2MRP(u(1:3))*u(4:6); -skewsym(u(4:6))*Ib*u(4:6) + Lc];
+    var = [om2MRP(u(1:3))*u(4:6); Ib\(-skewsym(u(4:6))*Ib*u(4:6) + Lc)];
 end
