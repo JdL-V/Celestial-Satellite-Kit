@@ -1,5 +1,5 @@
 function var = CRP2EP(qcr)
-    q = quat([1, qcr.x(1:3)]./sqrt(1 + dot(qcr,qcr)), ...
+    q = quat([1; qcr.x(1:3)]./sqrt(1 + dot(qcr.x,qcr.x)), ...
                     qcr.outFrame, qcr.inFrame);
     var = q;
 end
