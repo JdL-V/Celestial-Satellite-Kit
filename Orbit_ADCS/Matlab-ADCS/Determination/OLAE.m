@@ -10,11 +10,11 @@ function var = OLAE(vkb, vkn, weight)
         end
     end
     SWS = (S'*W*S);
-    if 1/cond(SWS) < 1e-4
-        warning("Matrix is close to singular or badly scaled. Results may be inaccurate. Changing to QUEST method")
-        var = QUEST(vkb, vkn, weight);
-        return
-    end
+    % if 1/cond(SWS) < 1e-4
+    %     warning("Matrix is close to singular or badly scaled. Results may be inaccurate. Changing to QUEST method")
+    %     var = QUEST(vkb, vkn, weight);
+    %     return
+    % end
     qcr = CRP(SWS\(S'*W*d), "B", "N");
 
     var = CRP2dcm(qcr);
