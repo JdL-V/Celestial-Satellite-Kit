@@ -1,27 +1,34 @@
 format compact
-
+%1
+%a
 prvBN = PRV(rad2deg(45), [0.,0.,1.], "B", "N");
 dcmBN = PRV2dcm(prvBN);
 neN = [-1.,0.,0.]';
 nsN = [0.,1.,0.]';
 neB = dcmBN.Mat*neN;
 nsB = dcmBN.Mat*nsN;
+
+%c/d/e
 dcmBN2 = TRIAD(neB, nsB, neN, nsN);
 dcmBN.Mat
 dcmBN2.Mat
+
+%f
 dcmBN3 = qMethod([neB nsB], [neN nsN], [1.,1.]);
 dcmBN4 = QUEST([neB nsB], [neN nsN], [1.,1.]);
-dcmBN5 = OLAE([neB nsB], [neN nsN], [1.,1.]);
+% dcmBN5 = OLAE([neB nsB], [neN nsN], [1.,1.]);
 dcmBN3.Mat
 dcmBN4.Mat
-dcmBN5.Mat
+% dcmBN5.Mat
 
+%2
 dcmBN6 = TRIAD([0.8273, 0.5541, -0.0920], [-0.8285, 0.5522, -0.0955], [-0.1517, -0.9669, 0.2050], [-0.8393, 0.4494, -0.3044]);
 dcmBN6.Mat
-dcmBN7 = OLAE([[0.8273, 0.5541, -0.0920]', [-0.8285, 0.5522, -0.0955]'], [[-0.1517, -0.9669, 0.2050]', [-0.8393, 0.4494, -0.3044]'],  [1.,1.]);
-dcmBN7.Mat
+% dcmBN7 = OLAE([[0.8273, 0.5541, -0.0920]', [-0.8285, 0.5522, -0.0955]'], [[-0.1517, -0.9669, 0.2050]', [-0.8393, 0.4494, -0.3044]'],  [1.,1.]);
+% dcmBN7.Mat
 
-u01 = deg2rad([80, 30, 40]');
+%3
+u01 = deg2rad([40, 30, 80]');
 optiondop = rdpset('RelTol',1e-7,'AbsTol',1e-7,'Refine',10);
 warning off
 tic
@@ -29,7 +36,8 @@ tic
     figure; plot(tout1,uout1)
 toc
 
-u0 = [1, 0, 0, 0]';
+%4
+u0 = [0.752219, 0.51563, 0.398665, 0.0967425]';
 tic
     [tout, uout] = EPdiff(@fq2, linspace(0,60,1e3), u0, optiondop);
     figure; plot(tout,uout)
