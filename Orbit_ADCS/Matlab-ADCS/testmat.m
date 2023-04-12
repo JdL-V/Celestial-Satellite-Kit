@@ -109,14 +109,12 @@ disp(cputime - t0)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function var = EP_testDF(t, u)
-    global ROT
     w = @(t) deg2rad(50).*[sin(0.1*t), 0.01, cos(0.1*t)]';
     M = om2EP(u);
     var = M*w(t);
 end
 
 function var = MRP_testDF(t, u)
-    global ROT
     m = 1.;
     R = 1.;
     Ib = [4*m*R^2/3 + m*R^2/4 0 0; 0 4*m*R^2/3 + m*R^2/4 0; 0 0 m*R^2/2];
