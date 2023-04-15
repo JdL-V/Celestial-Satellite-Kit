@@ -1,7 +1,8 @@
 function seed(n)
     if ~isnumeric(n) || n >= 2^32 || n < 0 || mod(n,1) ~= 0
-        warning('Seed randomized due to invalid number')
-        n = randi([0, 2^32-1]);
+        warning('Seed randomized')
+        rng shuffle
+    else
+        rng(n)
     end
-    rng(n)
-    fprintf("Seed set to %i",n)
+    disp(rng)
