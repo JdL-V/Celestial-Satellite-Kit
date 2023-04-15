@@ -1,4 +1,5 @@
 function var = OLAE(vkb, vkn, weight)
+    warning("use OLAE2 until this function works as intended")
     d0 = vkb - vkn;
     d = reshape(d0,[numel(d0),1]);
     N = length(d);
