@@ -1,4 +1,5 @@
 Init
+seed(1)
 warning off
 optiondop = rdpset('RelTol',1e-7,'AbsTol',1e-7,'Refine',10);
 
