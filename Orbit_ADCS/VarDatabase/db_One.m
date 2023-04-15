@@ -1,0 +1,1 @@
+function var = db_One(); var = 1D0

@@ -1,0 +1,1 @@
+function var = db_HalfPi(); var = pi/2D0

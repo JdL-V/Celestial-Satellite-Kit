@@ -1,0 +1,1 @@
+function var = db_TwoPi(); var = 2D0*pi
