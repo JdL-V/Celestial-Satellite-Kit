@@ -1,6 +1,6 @@
 clc
 clear
 close all
-rng default
+rng(1)
 
 addpath(genpath(fileparts(which(mfilename))))
