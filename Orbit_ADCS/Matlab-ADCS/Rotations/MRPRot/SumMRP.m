@@ -1,4 +1,7 @@
 function var = SumMRP(qmr1, qmr2)
+    if qmr1.outFrame ~= qmr2.inFrame
+        error("Rodrigues parameters are not frame-compatible")
+    end
 
     qmr1Sq = dot(qmr1.x,qmr1.x);
     qmr2Sq = dot(qmr2.x,qmr2.x);
