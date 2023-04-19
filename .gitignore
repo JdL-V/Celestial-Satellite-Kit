@@ -5,3 +5,5 @@ Orbit_ADCS/Orbital/orbital_main.m
 Orbit_ADCS/Matlab-ADCS/Tests/ZZZ.m
 *.mltbx
 *.prj
+*.sh
+Celestial Satellite Kit/
