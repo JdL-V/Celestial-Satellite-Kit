@@ -7,3 +7,5 @@ Orbit_ADCS/Matlab-ADCS/Tests/ZZZ.m
 *.prj
 *.sh
 Celestial Satellite Kit/
+Orbit_ADCS\Matlab-ADCS\Tests
+Orbit_ADCS\Matlab-ADCS\testmat.m
